@@ -1,0 +1,3 @@
+BOT_TOKEN = "8390987235:AAHuB2vZjAHROhN4_iLQtpw-kfCv3dQ04Wg"
+ADMIN_PASS = "Art&Valint123!"
+ADMIN_ID = "AdminCoc"
