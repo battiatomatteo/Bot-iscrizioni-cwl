@@ -77,9 +77,6 @@ async def seleziona_player(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text("❌ Errore nella selezione del player.")
         return ConversationHandler.END
 
-    # Sovrascrivi il nome con quello selezionato
-    context.user_data["nome"] = player["attacker_name"]
-
     return await salva_player(update, context, player)
 
 # Salvataggio finale
@@ -87,6 +84,7 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
     nome = player["attacker_name"]
     th = player["attacker_th"]
     tag = player["attacker_tag"]
+    user_id = update.effective_user.id
 
     dati = carica_dati()
     lista = dati.get("lista_principale", [])
@@ -101,16 +99,17 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
     lista.append({
         "nome_player": nome,
         "th": f"TH{th}",
-        "attacker_tag": tag
+        "attacker_tag": tag,
+        "user_id": user_id
     })
     dati["lista_principale"] = lista
     salva_dati(dati)
 
     await update.callback_query.message.reply_text(
-        f"✅ Iscrizione completata!\n\n"
-        f"👤 Nome: {nome}\n"
-        f"🏰 TH: TH{th}\n"
-        f"🏷️ Tag: `{tag}`\n\n"
+        f"✅ *Iscrizione completata!*\n\n"
+        f"👤 *Nome:* {nome}\n"
+        f"🏰 *TH:* TH{th}\n"
+        f"🏷️ *Tag:* `{tag}`\n\n"
         "📌 Il player è stato aggiunto alla lista CWL."
     )
     return ConversationHandler.END
@@ -119,3 +118,25 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
 async def annulla(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Iscrizione annullata ❌")
     return ConversationHandler.END
+
+# Comando /elimina_iscrizione
+async def elimina_iscrizione(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
+    dati = carica_dati()
+    lista = dati.get("lista_principale", [])
+
+    nuovi = [p for p in lista if p.get("user_id") != user_id]
+    rimossi = [p for p in lista if p.get("user_id") == user_id]
+
+    if not rimossi:
+        await update.message.reply_text("❌ Non hai iscrizioni da cancellare.")
+        return
+
+    dati["lista_principale"] = nuovi
+    salva_dati(dati)
+
+    testo = "🗑️ Hai cancellato le tue iscrizioni:\n\n"
+    for p in rimossi:
+        testo += f"- 👤 {p['nome_player']} | 🏰 {p['th']} | 🏷️ `{p['attacker_tag']}`\n"
+
+    await update.message.reply_markdown(testo)
