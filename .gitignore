@@ -1,0 +1,40 @@
+# 🔐 Protezione file di configurazione
+config.env
+
+# 🐍 Cache Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# 📦 Ambienti virtuali
+venv/
+env/
+.venv/
+ENV/
+.ENV/
+
+# 📄 File temporanei e di log
+*.log
+*.tmp
+*.bak
+
+# 🧪 File di test
+*.coverage
+.coverage.*
+htmlcov/
+.tox/
+.pytest_cache/
+
+# 📁 IDE/editor
+.vscode/
+.idea/
+*.swp
+
+# 📦 Distribuzione
+*.egg-info/
+dist/
+build/
+
+# 📂 Sistema operativo
+.DS_Store
+Thumbs.db
