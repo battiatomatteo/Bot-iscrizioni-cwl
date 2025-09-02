@@ -10,14 +10,14 @@ from telegram.ext import (
 )
 from utils.file_utils import carica_dati, salva_dati
 
-NOME, SELEZIONE = range(2)
+NOME, SELEZIONE, ELIMINA_SCELTA = range(3)
 
-# Step 1: Inserimento nome
+# Inizio iscrizione
 async def start_iscrizione(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Inserisci il nome del player da iscrivere:")
     return NOME
 
-# Step 2: Ricerca nel database CWL
+# Ricezione nome e ricerca
 async def ricevi_nome(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["nome"] = update.message.text
 
@@ -30,28 +30,19 @@ async def ricevi_nome(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return ConversationHandler.END
 
     nome = context.user_data["nome"]
-    matches = [
-        p for p in player_list
-        if nome.lower() in p["attacker_name"].lower()
-    ]
+    matches = [p for p in player_list if nome.lower() in p["attacker_name"].lower()]
 
     if not matches:
-        await update.message.reply_text(
-            f"⚠️ Nessun player trovato con il nome *{nome}*.\n"
-            "Controlla la scrittura o contatta un admin."
-        )
+        await update.message.reply_text(f"⚠️ Nessun player trovato con il nome *{nome}*.")
         return ConversationHandler.END
 
     if len(matches) == 1:
         return await salva_player(update, context, matches[0])
 
-    # Mostra tastiera con opzioni
     keyboard = []
     row = []
-    for player in matches:
-        display_name = player["attacker_name"]
-        tag = player["attacker_tag"]
-        row.append(InlineKeyboardButton(display_name, callback_data=tag))
+    for p in matches:
+        row.append(InlineKeyboardButton(p["attacker_name"], callback_data=p["attacker_tag"]))
         if len(row) == 2:
             keyboard.append(row)
             row = []
@@ -63,7 +54,7 @@ async def ricevi_nome(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["matches"] = matches
     return SELEZIONE
 
-# Step 3: Selezione finale
+# Selezione finale
 async def seleziona_player(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -71,15 +62,15 @@ async def seleziona_player(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     selected_tag = query.data
     matches = context.user_data.get("matches", [])
-
     player = next((p for p in matches if p["attacker_tag"] == selected_tag), None)
+
     if not player:
-        await query.edit_message_text("❌ Errore nella selezione del player.")
+        await query.edit_message_text("❌ Errore nella selezione.")
         return ConversationHandler.END
 
     return await salva_player(update, context, player)
 
-# Salvataggio finale
+# Salvataggio
 async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, player):
     nome = player["attacker_name"]
     th = player["attacker_th"]
@@ -89,11 +80,8 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
     dati = carica_dati()
     lista = dati.get("lista_principale", [])
 
-    # Controllo duplicato sul tag
     if any(p["attacker_tag"] == tag for p in lista):
-        await update.callback_query.message.reply_text(
-            f"⚠️ Il player `{tag}` è già registrato nella lista CWL."
-        )
+        await update.callback_query.message.reply_text(f"⚠️ Il player `{tag}` è già registrato.")
         return ConversationHandler.END
 
     lista.append({
@@ -107,36 +95,64 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
 
     await update.callback_query.message.reply_text(
         f"✅ *Iscrizione completata!*\n\n"
-        f"👤 *Nome:* {nome}\n"
-        f"🏰 *TH:* TH{th}\n"
-        f"🏷️ *Tag:* `{tag}`\n\n"
-        "📌 Il player è stato aggiunto alla lista CWL."
+        f"👤 *Nome:* {nome}\n🏰 *TH:* TH{th}\n🏷️ *Tag:* `{tag}`"
     )
     return ConversationHandler.END
 
-# Annulla iscrizione
+# Annulla
 async def annulla(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Iscrizione annullata ❌")
     return ConversationHandler.END
 
-# Comando /elimina_iscrizione
-async def elimina_iscrizione(update: Update, context: ContextTypes.DEFAULT_TYPE):
+# Elimina interattiva
+async def elimina_iscrizione_interattiva(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     dati = carica_dati()
     lista = dati.get("lista_principale", [])
+    miei = [p for p in lista if p.get("user_id") == user_id]
 
-    nuovi = [p for p in lista if p.get("user_id") != user_id]
-    rimossi = [p for p in lista if p.get("user_id") == user_id]
-
-    if not rimossi:
+    if not miei:
         await update.message.reply_text("❌ Non hai iscrizioni da cancellare.")
-        return
+        return ConversationHandler.END
 
-    dati["lista_principale"] = nuovi
-    salva_dati(dati)
+    keyboard = []
+    row = []
+    for p in miei:
+        row.append(InlineKeyboardButton(p["nome_player"], callback_data=p["attacker_tag"]))
+        if len(row) == 2:
+            keyboard.append(row)
+            row = []
+    if row:
+        keyboard.append(row)
 
-    testo = "🗑️ Hai cancellato le tue iscrizioni:\n\n"
-    for p in rimossi:
-        testo += f"- 👤 {p['nome_player']} | 🏰 {p['th']} | 🏷️ `{p['attacker_tag']}`\n"
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("Seleziona il nome da eliminare:", reply_markup=reply_markup)
+    context.user_data["lista_completa"] = lista
+    return ELIMINA_SCELTA
 
-    await update.message.reply_markdown(testo)
+# Conferma eliminazione
+async def conferma_eliminazione(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    await query.edit_message_reply_markup(reply_markup=None)
+
+    selected_tag = query.data
+    user_id = update.effective_user.id
+    lista = context.user_data.get("lista_completa", [])
+    player = next((p for p in lista if p["attacker_tag"] == selected_tag), None)
+
+    if not player:
+        await query.edit_message_text("❌ Errore nella selezione.")
+        return ConversationHandler.END
+
+    if player["user_id"] != user_id:
+        await query.edit_message_text("🚫 Non puoi eliminare questa iscrizione: non è tua.")
+        return ConversationHandler.END
+
+    nuova_lista = [p for p in lista if p["attacker_tag"] != selected_tag]
+    salva_dati({"lista_principale": nuova_lista})
+
+    await query.edit_message_text(
+        f"🗑️ Iscrizione rimossa:\n👤 *{player['nome_player']}* | 🏰 {player['th']} | 🏷️ `{player['attacker_tag']}`"
+    )
+    return ConversationHandler.END
