@@ -10,10 +10,10 @@ async def mostra_lista(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("La lista è vuota 🫥")
         return
 
-    testo = "📋 *Lista iscritti CWL:*\n\n"
+    testo = "📋 Lista iscritti CWL:\n\n"
     for i, player in enumerate(lista, start=1):
         nome = player.get("nome_player", "Sconosciuto")
         th = player.get("th", "TH?")
-        testo += f"{i}. 👤 *{nome}* | {th} \n"
+        testo += f"{i}. 👤 {nome} | {th} \n"
 
     await update.message.reply_markdown(testo)

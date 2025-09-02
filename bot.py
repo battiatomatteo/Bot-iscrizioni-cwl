@@ -29,11 +29,11 @@ conv_handler = ConversationHandler(
     entry_points=[CommandHandler("iscrivimi", start_iscrizione)],
     states={
         NOME: [MessageHandler(filters.TEXT & ~filters.COMMAND, ricevi_nome)],
-        TH: [CallbackQueryHandler(ricevi_th)],
         SELEZIONE: [CallbackQueryHandler(seleziona_player)],
     },
     fallbacks=[CommandHandler("annulla", annulla)],
 )
+
 
 app.add_handler(CommandHandler("start", start))
 app.add_handler(conv_handler)

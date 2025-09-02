@@ -10,55 +10,33 @@ from telegram.ext import (
 )
 from utils.file_utils import carica_dati, salva_dati
 
-NOME, TH, SELEZIONE = range(3)
+NOME, SELEZIONE = range(2)
 
 # Step 1: Inserimento nome
 async def start_iscrizione(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Inserisci il nome del player da iscrivere:")
     return NOME
 
-# Step 2: Selezione TH
+# Step 2: Ricerca nel database CWL
 async def ricevi_nome(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["nome"] = update.message.text
-
-    keyboard = []
-    row = []
-    for i in range(1, 18):
-        row.append(InlineKeyboardButton(f"TH{i}", callback_data=f"TH{i}"))
-        if len(row) == 2:
-            keyboard.append(row)
-            row = []
-    if row:
-        keyboard.append(row)
-
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("Ora seleziona il livello TH:", reply_markup=reply_markup)
-    return TH
-
-# Step 3: Ricerca nel database CWL
-async def ricevi_th(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
-    th = query.data
-    context.user_data["th"] = th
-    nome = context.user_data["nome"]
 
     try:
         response = requests.get("https://api.warmachine.cc/v1/playerlist")
         response.raise_for_status()
         player_list = response.json()
     except Exception:
-        await query.edit_message_text("❌ Errore nel recupero dei dati esterni.")
+        await update.message.reply_text("❌ Errore nel recupero dei dati esterni.")
         return ConversationHandler.END
 
-    # Cerca nomi simili
+    nome = context.user_data["nome"]
     matches = [
         p for p in player_list
         if nome.lower() in p["attacker_name"].lower()
     ]
 
     if not matches:
-        await query.edit_message_text(
+        await update.message.reply_text(
             f"⚠️ Nessun player trovato con il nome *{nome}*.\n"
             "Controlla la scrittura o contatta un admin."
         )
@@ -81,17 +59,18 @@ async def ricevi_th(update: Update, context: ContextTypes.DEFAULT_TYPE):
         keyboard.append(row)
 
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await query.edit_message_text("Seleziona il nome corretto:", reply_markup=reply_markup)
+    await update.message.reply_text("Seleziona il nome corretto:", reply_markup=reply_markup)
     context.user_data["matches"] = matches
     return SELEZIONE
 
-# Step 4: Selezione finale
+# Step 3: Selezione finale
 async def seleziona_player(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
+    await query.edit_message_reply_markup(reply_markup=None)
+
     selected_tag = query.data
     matches = context.user_data.get("matches", [])
-    th = context.user_data["th"]
 
     player = next((p for p in matches if p["attacker_tag"] == selected_tag), None)
     if not player:
@@ -103,28 +82,35 @@ async def seleziona_player(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     return await salva_player(update, context, player)
 
-
 # Salvataggio finale
 async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, player):
-    nome = context.user_data["nome"]
-    th = context.user_data["th"]
+    nome = player["attacker_name"]
+    th = player["attacker_th"]
     tag = player["attacker_tag"]
 
     dati = carica_dati()
     lista = dati.get("lista_principale", [])
+
+    # Controllo duplicato sul tag
+    if any(p["attacker_tag"] == tag for p in lista):
+        await update.callback_query.message.reply_text(
+            f"⚠️ Il player `{tag}` è già registrato nella lista CWL."
+        )
+        return ConversationHandler.END
+
     lista.append({
         "nome_player": nome,
-        "th": th,
+        "th": f"TH{th}",
         "attacker_tag": tag
     })
     dati["lista_principale"] = lista
     salva_dati(dati)
 
     await update.callback_query.message.reply_text(
-        f"✅ *Iscrizione completata!*\n\n"
-        f"👤 *Nome:* {nome}\n"
-        f"🏰 *TH:* {th}\n"
-        f"🏷️ *Tag:* `{tag}`\n\n"
+        f"✅ Iscrizione completata!\n\n"
+        f"👤 Nome: {nome}\n"
+        f"🏰 TH: TH{th}\n"
+        f"🏷️ Tag: `{tag}`\n\n"
         "📌 Il player è stato aggiunto alla lista CWL."
     )
     return ConversationHandler.END
