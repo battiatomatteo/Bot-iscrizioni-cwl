@@ -19,9 +19,11 @@ async def webhook(request: Request):
     update = Update.de_json(data, telegram_app.bot)
 
     # Inizializza il bot se non è già pronto
-    if not telegram_app.ready:
+    if not telegram_app.running:
         await telegram_app.initialize()
+        await telegram_app.start()
 
     await telegram_app.process_update(update)
     return {"status": "ok"}
+
 
