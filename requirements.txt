@@ -1,2 +1,6 @@
 python-telegram-bot==20.3
+fastapi
+python-telegram-bot==20.3
+uvicorn
+python-dotenv
 requests
