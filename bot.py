@@ -9,11 +9,9 @@ from telegram.ext import (
 from handlers.iscrizione import (
     start_iscrizione,
     ricevi_nome,
-    ricevi_th,
     seleziona_player,
     annulla,
     NOME,
-    TH,
     SELEZIONE
 )
 from config import BOT_TOKEN
