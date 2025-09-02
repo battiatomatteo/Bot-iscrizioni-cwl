@@ -17,5 +17,11 @@ app = FastAPI()
 async def webhook(request: Request):
     data = await request.json()
     update = Update.de_json(data, telegram_app.bot)
+
+    # Inizializza il bot se non è già pronto
+    if not telegram_app.ready:
+        await telegram_app.initialize()
+
     await telegram_app.process_update(update)
     return {"status": "ok"}
+
