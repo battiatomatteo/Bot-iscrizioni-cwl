@@ -81,7 +81,11 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
     lista = dati.get("lista_principale", [])
 
     if any(p["attacker_tag"] == tag for p in lista):
-        await update.callback_query.message.reply_text(f"⚠️ Il player `{tag}` è già registrato.")
+        # Risposta corretta in base al tipo di update
+        if update.callback_query:
+            await update.callback_query.message.reply_text(f"⚠️ Il player `{tag}` è già registrato.")
+        else:
+            await update.message.reply_text(f"⚠️ Il player `{tag}` è già registrato.")
         return ConversationHandler.END
 
     lista.append({
@@ -93,11 +97,22 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
     dati["lista_principale"] = lista
     salva_dati(dati)
 
-    await update.callback_query.message.reply_text(
+    testo = (
         f"✅ *Iscrizione completata!*\n\n"
-        f"👤 *Nome:* {nome}\n🏰 *TH:* TH{th}\n🏷️ *Tag:* `{tag}`"
+        f"👤 *Nome:* {nome}\n"
+        f"🏰 *TH:* TH{th}\n"
+        f"🏷️ *Tag:* `{tag}`\n\n"
+        "📌 Il player è stato aggiunto alla lista CWL."
     )
+
+    # Risposta corretta in base al tipo di update
+    if update.callback_query:
+        await update.callback_query.message.reply_markdown(testo)
+    else:
+        await update.message.reply_markdown(testo)
+
     return ConversationHandler.END
+
 
 # Annulla
 async def annulla(update: Update, context: ContextTypes.DEFAULT_TYPE):

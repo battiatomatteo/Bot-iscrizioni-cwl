@@ -22,8 +22,13 @@ from handlers.iscrizione import (
     ELIMINA_SCELTA
 )
 
-from handlers.mostra_lista import mostra_lista
+from handlers.start import start
+from handlers.listaIscritti import mostra_lista
 from handlers.esporta import esporta_json
+from dotenv import load_dotenv
+load_dotenv(dotenv_path="config.env")
+
+load_dotenv()
 
 # Leggi il token dal sistema
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -51,6 +56,7 @@ conv_elimina = ConversationHandler(
 )
 
 # Comandi statici
+app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("lista", mostra_lista))
 app.add_handler(CommandHandler("esporta", esporta_json))
 app.add_handler(CommandHandler("annulla", annulla))
