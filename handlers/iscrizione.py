@@ -1,5 +1,6 @@
+import asyncio
 import requests
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import ForceReply, Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ContextTypes,
     ConversationHandler,
@@ -9,50 +10,68 @@ from telegram.ext import (
     filters
 )
 from utils.file_utils import carica_dati, salva_dati
+from telegram.ext import ContextTypes
 
 NOME, SELEZIONE, ELIMINA_SCELTA = range(3)
 
 # Inizio iscrizione
-async def start_iscrizione(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Inserisci il nome del player da iscrivere:")
+async def start_iscrizione(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    await update.message.reply_text(
+        "📌 Inserisci il nome del player da iscrivere:",
+        reply_markup=ForceReply()
+    )
     return NOME
 
-# Ricezione nome e ricerca
-async def ricevi_nome(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    context.user_data["nome"] = update.message.text
 
+# Ricezione nome e ricerca
+async def ricevi_nome(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    if not update.message.reply_to_message:
+        await update.message.reply_text("❌ Per favore rispondi al messaggio con la domanda usando il campo sotto.")
+        return NOME
+
+    nome_inserito = update.message.text.strip().lower()
+    print("📥 Nome inserito:", repr(nome_inserito))
+
+    # 🔄 Recupero dati da API esterna
     try:
         response = requests.get("https://api.warmachine.cc/v1/playerlist")
         response.raise_for_status()
         player_list = response.json()
-    except Exception:
+        print("📂 Dati ricevuti:", len(player_list), "players")
+    except Exception as e:
+        print("❌ Errore API:", e)
         await update.message.reply_text("❌ Errore nel recupero dei dati esterni.")
         return ConversationHandler.END
 
-    nome = context.user_data["nome"]
-    matches = [p for p in player_list if nome.lower() in p["attacker_name"].lower()]
+    # 🔍 Cerca match
+    matches = [
+        p for p in player_list
+        if p.get("attacker_name") and nome_inserito in p["attacker_name"].strip().lower()
+    ]
+    print("🔍 Match trovati:", len(matches))
+    for m in matches:
+        print(" →", m["attacker_name"], "|", m["attacker_tag"])
 
     if not matches:
-        await update.message.reply_text(f"⚠️ Nessun player trovato con il nome *{nome}*.")
-        return ConversationHandler.END
+        await update.message.reply_text("⚠️ Nessun player trovato con quel nome. Riprova.")
+        return NOME
 
     if len(matches) == 1:
         return await salva_player(update, context, matches[0])
 
-    keyboard = []
-    row = []
-    for p in matches:
-        row.append(InlineKeyboardButton(p["attacker_name"], callback_data=p["attacker_tag"]))
-        if len(row) == 2:
-            keyboard.append(row)
-            row = []
-    if row:
-        keyboard.append(row)
-
+    # 🔘 Selezione interattiva
+    keyboard = [
+        [InlineKeyboardButton(p["attacker_name"], callback_data=p["attacker_tag"])]
+        for p in matches
+    ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("Seleziona il nome corretto:", reply_markup=reply_markup)
     context.user_data["matches"] = matches
+    print("💾 Match salvati in context.user_data")
+
+    await update.message.reply_text("🔍 Seleziona il player giusto:", reply_markup=reply_markup)
     return SELEZIONE
+
+
 
 # Selezione finale
 async def seleziona_player(update: Update, context: ContextTypes.DEFAULT_TYPE):

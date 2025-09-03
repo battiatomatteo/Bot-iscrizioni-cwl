@@ -1,5 +1,7 @@
 import os
 from telegram import Update
+from telegram import ForceReply
+
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
@@ -68,4 +70,8 @@ app.add_handler(conv_elimina)
 # Avvio
 if __name__ == "__main__":
     print("🤖 Bot avviato... in ascolto su Telegram!")
-    app.run_polling()
+    try:
+        app.run_polling()
+    except KeyboardInterrupt:
+        print("🛑 Bot interrotto manualmente.")
+
