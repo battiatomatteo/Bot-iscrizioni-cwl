@@ -103,10 +103,12 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
 
     # Verifica se il player è già registrato
     if any(p["attacker_tag"] == tag for p in lista):
+        messaggio = f"⚠️ Il player `{tag}` è già registrato."
+        messaggio = escape_markdown(messaggio, version=2)
         if update.callback_query:
-            await update.callback_query.message.reply_text(f"⚠️ Il player `{tag}` è già registrato.")
+            await update.callback_query.message.reply_text(messaggio, parse_mode="MarkdownV2")
         else:
-            await update.message.reply_text(f"⚠️ Il player `{tag}` è già registrato.")
+            await update.message.reply_text(messaggio, parse_mode="MarkdownV2")
         return ConversationHandler.END
 
     # Aggiungi il player alla lista
@@ -122,24 +124,21 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
 
     # Messaggio di conferma
     testo = (
-        f"✅ *Iscrizione completata!*\n\n"
-        f"👤 *Nome:* {nome}\n"
-        f"🏰 *TH:* TH{th}\n"
-        f"🏷️ *Tag:* `{tag}`\n"
-        f"🏆 *Lega CWL:* {lega}\n\n"
+        f"✅ Iscrizione completata!\n\n"
+        f"👤 Nome: {nome}\n"
+        f"🏰 TH: TH{th}\n"
+        f"🏷️ Tag: `{tag}`\n"
+        f"🏆 Lega CWL: {lega}\n\n"
         "📌 Il player è stato aggiunto alla lista CWL."
     )
+    testo = escape_markdown(testo, version=2)
 
     if update.callback_query:
-        await update.callback_query.message.reply_text(
-            escape_markdown(testo, version=2),
-            parse_mode="MarkdownV2"
-        )
+        await update.callback_query.message.reply_text(testo, parse_mode="MarkdownV2")
     else:
-        await update.message.reply_markdown(testo)
+        await update.message.reply_text(testo, parse_mode="MarkdownV2")
 
     return ConversationHandler.END
-
 
 
 # Annulla

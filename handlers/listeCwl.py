@@ -17,12 +17,16 @@ async def genera_txt_cwl(update: Update, context: ContextTypes.DEFAULT_TYPE):
     dati = carica_dati()
     lista = dati.get("lista_principale", [])
 
-    # Raggruppa per lega
+    # Raggruppa per lega + lista separata per chi non ha lega
     leghe = {lega: [] for lega in ORDINE_LEGHE}
+    senza_lega = []
+
     for player in lista:
         lega = player.get("last_cwl_league")
         if lega in leghe:
             leghe[lega].append(player)
+        else:
+            senza_lega.append(player)
 
     # Crea contenuto TXT
     contenuto = "📋 Lista CWL per lega\n\n"
@@ -33,6 +37,14 @@ async def genera_txt_cwl(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         contenuto += f"🏆 {lega}\n"
         for p in players:
+            riga = f"- {p['nome_player']} | {p['th']} | {p['attacker_tag']}\n"
+            contenuto += riga
+        contenuto += "\n"
+
+    # Aggiungi sezione finale per chi non ha lega
+    if senza_lega:
+        contenuto += "🚫 Senza lega CWL\n"
+        for p in senza_lega:
             riga = f"- {p['nome_player']} | {p['th']} | {p['attacker_tag']}\n"
             contenuto += riga
         contenuto += "\n"
