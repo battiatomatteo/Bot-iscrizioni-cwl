@@ -1,3 +1,46 @@
 {
-    "lista_principale": []
+    "lista_principale": [
+        {
+            "nome_player": "BADDY",
+            "th": "TH17",
+            "attacker_tag": "#PPUCJYRQ9",
+            "user_id": 960976716,
+            "last_cwl_league": "Champion League II"
+        },
+        {
+            "nome_player": "bari narvalo",
+            "th": "TH16",
+            "attacker_tag": "#YYR800QJ",
+            "user_id": 960976716,
+            "last_cwl_league": "Crystal League I"
+        },
+        {
+            "nome_player": "xALE02",
+            "th": "TH17",
+            "attacker_tag": "#YR2PVCJL",
+            "user_id": 960976716,
+            "last_cwl_league": "Champion League II"
+        },
+        {
+            "nome_player": "\u2606Lorenzo\u2606",
+            "th": "TH17",
+            "attacker_tag": "#8RUCP8Q92",
+            "user_id": 960976716,
+            "last_cwl_league": "Master League III"
+        },
+        {
+            "nome_player": "_Sara_\u2661",
+            "th": "TH17",
+            "attacker_tag": "#LGPL8Y90Q",
+            "user_id": 960976716,
+            "last_cwl_league": "Master League I"
+        },
+        {
+            "nome_player": "_Saretta_\u2661",
+            "th": "TH14",
+            "attacker_tag": "#G0Q2JYC20",
+            "user_id": 960976716,
+            "last_cwl_league": "Crystal League II"
+        }
+    ]
 }

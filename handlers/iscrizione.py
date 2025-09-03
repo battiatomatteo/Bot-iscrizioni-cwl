@@ -11,6 +11,7 @@ from telegram.ext import (
 )
 from utils.file_utils import carica_dati, salva_dati
 from telegram.ext import ContextTypes
+from telegram.helpers import escape_markdown
 
 NOME, SELEZIONE, ELIMINA_SCELTA = range(3)
 
@@ -95,42 +96,50 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
     th = player["attacker_th"]
     tag = player["attacker_tag"]
     user_id = update.effective_user.id
+    lega = player.get("last_cwl_league", "Non assegnata")
 
     dati = carica_dati()
     lista = dati.get("lista_principale", [])
 
+    # Verifica se il player è già registrato
     if any(p["attacker_tag"] == tag for p in lista):
-        # Risposta corretta in base al tipo di update
         if update.callback_query:
             await update.callback_query.message.reply_text(f"⚠️ Il player `{tag}` è già registrato.")
         else:
             await update.message.reply_text(f"⚠️ Il player `{tag}` è già registrato.")
         return ConversationHandler.END
 
+    # Aggiungi il player alla lista
     lista.append({
         "nome_player": nome,
         "th": f"TH{th}",
         "attacker_tag": tag,
-        "user_id": user_id
+        "user_id": user_id,
+        "last_cwl_league": lega
     })
     dati["lista_principale"] = lista
     salva_dati(dati)
 
+    # Messaggio di conferma
     testo = (
         f"✅ *Iscrizione completata!*\n\n"
         f"👤 *Nome:* {nome}\n"
         f"🏰 *TH:* TH{th}\n"
-        f"🏷️ *Tag:* `{tag}`\n\n"
+        f"🏷️ *Tag:* `{tag}`\n"
+        f"🏆 *Lega CWL:* {lega}\n\n"
         "📌 Il player è stato aggiunto alla lista CWL."
     )
 
-    # Risposta corretta in base al tipo di update
     if update.callback_query:
-        await update.callback_query.message.reply_markdown(testo)
+        await update.callback_query.message.reply_text(
+            escape_markdown(testo, version=2),
+            parse_mode="MarkdownV2"
+        )
     else:
         await update.message.reply_markdown(testo)
 
     return ConversationHandler.END
+
 
 
 # Annulla

@@ -9,6 +9,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "`/start` – Mostra questo messaggio\n"
         "`/iscrivimi` – Iscriviti alla lista CWL inserendo nome e TH\n"
         "`/lista` – Visualizza tutti gli iscritti\n"
+        "`/txt_cwl` – Crea un file txt con le liste in base all'ultima cwl fatta\n"
         "`/annulla` – Annulla l'iscrizione in corso\n"
         "`/esporta` – Esporta la lista in un file JSON\n"
         "`/elimina_iscrizione` – Elimina l'iscrizione di un tuo account\n\n"

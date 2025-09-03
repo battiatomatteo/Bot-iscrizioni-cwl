@@ -23,7 +23,7 @@ from handlers.iscrizione import (
     SELEZIONE,
     ELIMINA_SCELTA
 )
-
+from handlers.listeCwl import genera_txt_cwl
 from handlers.start import start
 from handlers.listaIscritti import mostra_lista
 from handlers.esporta import esporta_json
@@ -62,6 +62,7 @@ app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("lista", mostra_lista))
 app.add_handler(CommandHandler("esporta", esporta_json))
 app.add_handler(CommandHandler("annulla", annulla))
+app.add_handler(CommandHandler("txt_cwl", genera_txt_cwl))
 
 # Conversazioni
 app.add_handler(conv_iscrizione)
