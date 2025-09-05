@@ -12,7 +12,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "`/txt_cwl` – Crea un file txt con le liste in base all'ultima cwl fatta\n"
         "`/annulla` – Annulla l'iscrizione in corso\n"
         "`/esporta` – Esporta la lista in un file JSON\n"
-        "`/elimina_iscrizione` – Elimina l'iscrizione di un tuo account\n\n"
+        "`/elimina_iscrizione` – Elimina l'iscrizione di un tuo account\n"
+        "`/app-admin` – Mini app web per la gestione delle lisre , accesso solo per i co-capi\n\n"
         "🎮 *Buon game!*"
     )
 

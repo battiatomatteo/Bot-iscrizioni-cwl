@@ -70,7 +70,7 @@ app.add_handler(CommandHandler("lista", mostra_lista))
 app.add_handler(CommandHandler("esporta", esporta_json))
 app.add_handler(CommandHandler("annulla", annulla))
 app.add_handler(CommandHandler("txt_cwl", genera_txt_cwl))
-app.add_handler(CommandHandler("gestione", apri_webapp))
+app.add_handler(CommandHandler("app_admin", apri_webapp))
 
 
 # Conversazioni
