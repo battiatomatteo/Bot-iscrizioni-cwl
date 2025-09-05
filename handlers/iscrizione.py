@@ -18,6 +18,10 @@ NOME, SELEZIONE, ELIMINA_SCELTA = range(3)
 # Inizio iscrizione
 async def start_iscrizione(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     await update.message.reply_text(
+        "📌 Ti verrà chiesto di inserire il nome dell'account che vuoi iscrivere , bastano anche le iniziali , in seguito dovrai selezionare il tuo account da una lista di nomi che contengono il nome da te inserito . ",
+        reply_markup=ForceReply()
+    )
+    await update.message.reply_text(
         "📌 Inserisci il nome del player da iscrivere:",
         reply_markup=ForceReply()
     )
@@ -124,11 +128,11 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
 
     # Messaggio di conferma
     testo = (
-        f"✅ Iscrizione completata!\n\n"
-        f"👤 Nome: {nome}\n"
-        f"🏰 TH: TH{th}\n"
-        f"🏷️ Tag: `{tag}`\n"
-        f"🏆 Lega CWL: {lega}\n\n"
+        "✅ Iscrizione completata!\n\n"
+        f"👤 Nome : {nome}\n"
+        f"🏰 TH : TH{th}\n"
+        f"🏷️ Tag : `{tag}`\n"
+        f"🏆 Lega CWL : {lega}\n\n"
         "📌 Il player è stato aggiunto alla lista CWL."
     )
     testo = escape_markdown(testo, version=2)
@@ -136,7 +140,7 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
     if update.callback_query:
         await update.callback_query.message.reply_text(testo, parse_mode="MarkdownV2")
     else:
-        await update.message.reply_text(testo, parse_mode="MarkdownV2")
+        await update.message.reply_markdown(testo, parse_mode="MarkdownV2")
 
     return ConversationHandler.END
 

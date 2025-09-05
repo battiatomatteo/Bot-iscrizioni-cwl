@@ -1,6 +1,5 @@
 import os
-from telegram import Update
-from telegram import ForceReply
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 from telegram.ext import (
     ApplicationBuilder,
@@ -57,12 +56,21 @@ conv_elimina = ConversationHandler(
     fallbacks=[CommandHandler("annulla", annulla)],
 )
 
+async def apri_webapp(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [InlineKeyboardButton("🧩 Apri Mini App", web_app={"url": "https://matteo.github.io/bot-cwl-webapp/index.html"})]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("Apri la Mini App per gestire le iscrizioni:", reply_markup=reply_markup)
+
 # Comandi statici
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("lista", mostra_lista))
 app.add_handler(CommandHandler("esporta", esporta_json))
 app.add_handler(CommandHandler("annulla", annulla))
 app.add_handler(CommandHandler("txt_cwl", genera_txt_cwl))
+app.add_handler(CommandHandler("gestione", apri_webapp))
+
 
 # Conversazioni
 app.add_handler(conv_iscrizione)

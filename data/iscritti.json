@@ -1,5 +1,46 @@
 {
     "lista_principale": [
-        
+        {
+            "nome_player": "BADDY",
+            "th": "TH17",
+            "attacker_tag": "#PPUCJYRQ9",
+            "user_id": 960976716,
+            "last_cwl_league": "Champion League II"
+        },
+        {
+            "nome_player": "pallino",
+            "th": "TH17",
+            "attacker_tag": "#P982VG9JL",
+            "user_id": 960976716,
+            "last_cwl_league": "Master League I"
+        },
+        {
+            "nome_player": "Zio Besi\u00f1o\u26a1\ufe0f",
+            "th": "TH17",
+            "attacker_tag": "#28CRV2QR9",
+            "user_id": 960976716,
+            "last_cwl_league": "Master League I"
+        },
+        {
+            "nome_player": "bana",
+            "th": "TH12",
+            "attacker_tag": "#QLPLPYQJ9",
+            "user_id": 960976716,
+            "last_cwl_league": "Crystal League II"
+        },
+        {
+            "nome_player": "Bud Spencer",
+            "th": "TH17",
+            "attacker_tag": "#P82GY80Y9",
+            "user_id": 960976716,
+            "last_cwl_league": "Champion League III"
+        },
+        {
+            "nome_player": "\u20e4M\u2211\u2202u\u015e\u2206\u2605",
+            "th": "TH17",
+            "attacker_tag": "#2VLYPRG2U",
+            "user_id": 960976716,
+            "last_cwl_league": "Champion League III"
+        }
     ]
 }
