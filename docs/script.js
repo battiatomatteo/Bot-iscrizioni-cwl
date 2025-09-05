@@ -3,11 +3,10 @@ tg.expand();
 
 const lista = document.getElementById("lista");
 
-// Percorso relativo al file JSON nella stessa cartella
-fetch("iscritti.json")
+fetch("http://localhost:5000/api/iscritti")
   .then(res => res.json())
   .then(giocatori => {
-    lista.innerHTML = ""; // pulizia
+    lista.innerHTML = "";
     giocatori.forEach(p => {
       const card = document.createElement("div");
       card.className = "card";
@@ -20,5 +19,5 @@ fetch("iscritti.json")
   })
   .catch(err => {
     lista.innerHTML = "<p>❌ Errore nel caricamento dei dati.</p>";
-    console.error("Errore fetch JSON:", err);
+    console.error(err);
   });
