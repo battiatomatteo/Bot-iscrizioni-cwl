@@ -1,5 +1,5 @@
 import os
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 
 from telegram.ext import (
     ApplicationBuilder,
