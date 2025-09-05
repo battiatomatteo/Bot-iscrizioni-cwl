@@ -4,9 +4,19 @@ tg.expand();
 const lista = document.getElementById("lista");
 
 fetch("http://localhost:5000/api/iscritti")
-  .then(res => res.json())
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(`HTTP error ${res.status}`);
+    }
+    return res.json();
+  })
   .then(giocatori => {
-    lista.innerHTML = "";
+    lista.innerHTML = ""; // pulizia
+    if (!Array.isArray(giocatori)) {
+      lista.innerHTML = "<p>⚠️ Nessun giocatore trovato.</p>";
+      return;
+    }
+
     giocatori.forEach(p => {
       const card = document.createElement("div");
       card.className = "card";
@@ -19,5 +29,5 @@ fetch("http://localhost:5000/api/iscritti")
   })
   .catch(err => {
     lista.innerHTML = "<p>❌ Errore nel caricamento dei dati.</p>";
-    console.error(err);
+    console.error("Errore fetch JSON:", err);
   });
