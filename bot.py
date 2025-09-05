@@ -58,7 +58,7 @@ conv_elimina = ConversationHandler(
 
 async def apri_webapp(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🧩 Apri Mini App", web_app={"url": "https://matteo.github.io/bot-cwl-webapp/index.html"})]
+        [InlineKeyboardButton("🧩 Apri Mini App", web_app={"url": "https://github.com/battiatomatteo/Bot-iscrizioni-cwl/blob/main/webapp/index.html"})]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("Apri la Mini App per gestire le iscrizioni:", reply_markup=reply_markup)
