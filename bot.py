@@ -1,5 +1,6 @@
 import os
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 
 from telegram.ext import (
     ApplicationBuilder,
@@ -58,10 +59,11 @@ conv_elimina = ConversationHandler(
 
 async def apri_webapp(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🧩 Apri Mini App", web_app={"url": "https://battiatomatteo.github.io/Bot-iscrizioni-cwl/"})]
+        [InlineKeyboardButton("🧩 Apri Mini App", web_app=WebAppInfo(url="https://localhost:8000"))]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("Apri la Mini App per gestire le iscrizioni:", reply_markup=reply_markup)
+
 
 
 # Comandi statici
