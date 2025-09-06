@@ -8,14 +8,28 @@ function verificaPassword() {
   const input = document.getElementById("password").value;
   const errore = document.getElementById("errore");
 
-  if (input === PASSWORD_CORRETTA) {
-    document.getElementById("login").style.display = "none";
-    document.getElementById("app").style.display = "block";
-    caricaGiocatori();
-  } else {
-    errore.textContent = "❌ Password errata.";
-  }
+  fetch("http://localhost:5000/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ password: input })
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Password errata");
+      return res.json();
+    })
+    .then(data => {
+      if (data.success) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("app").style.display = "block";
+        caricaGiocatori();
+      }
+    })
+    .catch(err => {
+      errore.textContent = "❌ Password errata.";
+      console.error(err);
+    });
 }
+
 
 
 function caricaGiocatori() {
