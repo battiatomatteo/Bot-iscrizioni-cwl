@@ -4,6 +4,8 @@ import os
 
 load_dotenv()
 
+load_dotenv(dotenv_path="docs/configWeb.env")
+
 app = Flask(__name__)
 PASSWORD_CORRETTA = os.getenv("MINIAPP_PASSWORD")
 
