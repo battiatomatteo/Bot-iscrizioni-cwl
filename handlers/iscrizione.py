@@ -3,11 +3,7 @@ import requests
 from telegram import ForceReply, Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ContextTypes,
-    ConversationHandler,
-    MessageHandler,
-    CommandHandler,
-    CallbackQueryHandler,
-    filters
+    ConversationHandler
 )
 from utils.file_utils import carica_dati, salva_dati
 from telegram.ext import ContextTypes
