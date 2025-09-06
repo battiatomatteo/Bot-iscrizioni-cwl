@@ -1,15 +1,14 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-const CONFIG = {
-  PASSWORD: "AdminAV1!"
-};
+const PASSWORD_CORRETTA = CONFIG.PASSWORD;
+
 
 function verificaPassword() {
   const input = document.getElementById("password").value;
   const errore = document.getElementById("errore");
 
-  if (input === PASSWORD) {
+  if (input === PASSWORD_CORRETTA) {
     document.getElementById("login").style.display = "none";
     document.getElementById("app").style.display = "block";
     caricaGiocatori();
@@ -17,6 +16,7 @@ function verificaPassword() {
     errore.textContent = "❌ Password errata.";
   }
 }
+
 
 function caricaGiocatori() {
   fetch("iscritti.json")
