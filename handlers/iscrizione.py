@@ -100,6 +100,7 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
     th = player["attacker_th"]
     tag = player["attacker_tag"]
     user_id = update.effective_user.id
+    username = update.effective_user.username or f"id_{user_id}"  # ✅ aggiunto qui
     lega = player.get("last_cwl_league", "Non assegnata")
 
     dati = carica_dati()
@@ -121,6 +122,7 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
         "th": f"TH{th}",
         "attacker_tag": tag,
         "user_id": user_id,
+        "username": username,  # ✅ salvato nel JSON
         "last_cwl_league": lega
     })
     dati["lista_principale"] = lista
@@ -132,7 +134,8 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
         f"👤 Nome : {nome}\n"
         f"🏰 TH : TH{th}\n"
         f"🏷️ Tag : `{tag}`\n"
-        f"🏆 Lega CWL : {lega}\n\n"
+        f"🏆 Lega CWL : {lega}\n"
+        f"🔗 Username Telegram : @{username}\n\n"
         "📌 Il player è stato aggiunto alla lista CWL."
     )
     testo = escape_markdown(testo, version=2)
@@ -143,6 +146,7 @@ async def salva_player(update: Update, context: ContextTypes.DEFAULT_TYPE, playe
         await update.message.reply_markdown(testo, parse_mode="MarkdownV2")
 
     return ConversationHandler.END
+
 
 
 # Annulla

@@ -1,33 +1,42 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-const lista = document.getElementById("lista");
+const CONFIG = {
+  PASSWORD: "AdminAV1!"
+};
 
-fetch("http://localhost:5000/api/iscritti")
-  .then(res => {
-    if (!res.ok) {
-      throw new Error(`HTTP error ${res.status}`);
-    }
-    return res.json();
-  })
-  .then(giocatori => {
-    lista.innerHTML = ""; // pulizia
-    if (!Array.isArray(giocatori)) {
-      lista.innerHTML = "<p>⚠️ Nessun giocatore trovato.</p>";
-      return;
-    }
+function verificaPassword() {
+  const input = document.getElementById("password").value;
+  const errore = document.getElementById("errore");
 
-    giocatori.forEach(p => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <div class="nome">${p.nome_player}</div>
-        <div class="info">${p.th} | ${p.attacker_tag} | ${p.last_cwl_league || "Non assegnata"}</div>
-      `;
-      lista.appendChild(card);
+  if (input === PASSWORD) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("app").style.display = "block";
+    caricaGiocatori();
+  } else {
+    errore.textContent = "❌ Password errata.";
+  }
+}
+
+function caricaGiocatori() {
+  fetch("iscritti.json")
+    .then(res => res.json())
+    .then(data => {
+      const lista = document.getElementById("lista");
+      lista.innerHTML = "";
+      const giocatori = data.lista_principale;
+      giocatori.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="nome">${p.nome_player}</div>
+          <div class="info">${p.th} | ${p.attacker_tag} | ${p.last_cwl_league || "Non assegnata"}</div>
+        `;
+        lista.appendChild(card);
+      });
     });
-  })
-  .catch(err => {
-    lista.innerHTML = "<p>❌ Errore nel caricamento dei dati.</p>";
-    console.error("Errore fetch JSON:", err);
-  });
+}
+
+function invia() {
+  tg.sendData("Suddivisione inviata");
+}
