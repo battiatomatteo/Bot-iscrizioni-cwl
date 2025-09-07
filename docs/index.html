@@ -9,7 +9,11 @@
 <body>
   <div id="login">
     <h2>🔐 Accesso Mini App</h2>
-    <input type="password" id="password" placeholder="Inserisci la password">
+    <div class="password-wrapper">
+      <input type="password" id="password" placeholder="Inserisci la password">
+      <button type="button" id="togglePassword">👁️</button>
+    </div>
+
     <button onclick="verificaPassword()">Accedi</button>
     <p id="errore" style="color: red;"></p>
   </div>

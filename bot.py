@@ -1,6 +1,8 @@
 import os
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+from secret import BOT_TOKEN
+from telegram.ext import Application
 
 from telegram.ext import (
     ApplicationBuilder,
@@ -31,6 +33,8 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path="config.env")
 
 load_dotenv()
+
+application = Application.builder().token(BOT_TOKEN).build()
 
 # Leggi il token dal sistema
 BOT_TOKEN = os.getenv("BOT_TOKEN")

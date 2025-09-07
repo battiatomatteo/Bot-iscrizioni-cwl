@@ -9,14 +9,17 @@ load_dotenv(dotenv_path="docs/configWeb.env")
 app = Flask(__name__)
 PASSWORD_CORRETTA = os.getenv("MINIAPP_PASSWORD")
 
+from secret import SECRET_TOKEN
+
 @app.route("/api/login", methods=["POST"])
 def login():
     data = request.json
     password = data.get("password")
-    if password == PASSWORD_CORRETTA:
+    if password == SECRET_TOKEN:
         return jsonify({"success": True})
     else:
         return jsonify({"success": False}), 401
+
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

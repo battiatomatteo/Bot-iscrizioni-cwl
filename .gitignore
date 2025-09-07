@@ -1,6 +1,7 @@
 # 🔐 Protezione file di configurazione
 config.env
 configWeb.env
+secret.py
 
 # 🐍 Cache Python
 __pycache__/
