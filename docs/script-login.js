@@ -1,5 +1,5 @@
 // Funzione per verificare la password
-function verificaPassword() {
+/*function verificaPassword() {
   const input = document.getElementById("password").value;
   const errore = document.getElementById("errore");
 
@@ -33,7 +33,27 @@ function verificaPassword() {
       errore.textContent = "❌ " + err.message;
       console.error("Errore login:", err);
     });
+}*/
+
+// vrsione senza backend per test locale
+function verificaPassword() {
+  const input = document.getElementById("password").value;
+  const errore = document.getElementById("errore");
+
+  if (!input) {
+    errore.textContent = "❌ Inserisci la password.";
+    return;
+  }
+
+  const PASSWORD_CORRETTA = "AdminAV1!";
+
+  if (input === PASSWORD_CORRETTA) {
+    window.location.href = "home.html"; // ✅ Redirect simulato
+  } else {
+    errore.textContent = "❌ Password errata.";
+  }
 }
+
 
 // Funzione per mostrare/nascondere la password
 document.getElementById("togglePassword").addEventListener("click", () => {
