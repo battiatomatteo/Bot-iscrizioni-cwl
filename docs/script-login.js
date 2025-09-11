@@ -1,16 +1,17 @@
 // Funzione per verificare la password
-/*function verificaPassword() {
+function verificaPassword() {
   const input = document.getElementById("password").value;
   const errore = document.getElementById("errore");
 
-  // Controllo input vuoto
   if (!input) {
     errore.textContent = "❌ Inserisci la password.";
     return;
   }
 
-  // Invio richiesta al backend
-  fetch("http://localhost:5000/api/login", {
+  // 🔗 Inserisci qui l'URL del tuo backend FastAPI 
+  const BACKEND_URL = "https://tuo-dominio.it/api/login"; // ← cambia questo!
+
+  fetch(BACKEND_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ password: input })
@@ -24,7 +25,7 @@
     })
     .then(data => {
       if (data.success) {
-        window.location.href = "home.html"; // ✅ Redirect alla home
+        window.location.href = "home.html"; // ✅ Accesso riuscito
       } else {
         errore.textContent = "❌ Password errata.";
       }
@@ -33,10 +34,11 @@
       errore.textContent = "❌ " + err.message;
       console.error("Errore login:", err);
     });
-}*/
+}
+
 
 // vrsione senza backend per test locale
-function verificaPassword() {
+/*function verificaPassword() {
   const input = document.getElementById("password").value;
   const errore = document.getElementById("errore");
 
@@ -45,14 +47,14 @@ function verificaPassword() {
     return;
   }
 
-  const PASSWORD_CORRETTA = "AdminAV1!";
+  const PASSWORD_CORRETTA = "";
 
   if (input === PASSWORD_CORRETTA) {
     window.location.href = "home.html"; // ✅ Redirect simulato
   } else {
     errore.textContent = "❌ Password errata.";
   }
-}
+}*/
 
 
 // Funzione per mostrare/nascondere la password
