@@ -1,11 +1,9 @@
 import os
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
-from secret import BOT_TOKEN
-from telegram.ext import Application
-
+from dotenv import load_dotenv
+from fastapi import FastAPI, Request
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import (
-    ApplicationBuilder,
+    Application,
     CommandHandler,
     MessageHandler,
     CallbackQueryHandler,
@@ -14,6 +12,7 @@ from telegram.ext import (
     filters
 )
 
+# Importa i tuoi handler personalizzati
 from handlers.iscrizione import (
     start_iscrizione,
     ricevi_nome,
@@ -29,20 +28,34 @@ from handlers.listeCwl import genera_txt_cwl
 from handlers.start import start
 from handlers.listaIscritti import mostra_lista
 from handlers.esporta import esporta_json
-from dotenv import load_dotenv
+
+# 🔐 Carica variabili ambiente
 load_dotenv(dotenv_path="config.env")
-
-load_dotenv()
-
-application = Application.builder().token(BOT_TOKEN).build()
-
-# Leggi il token dal sistema
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-# Crea l'applicazione
-app = ApplicationBuilder().token(BOT_TOKEN).build()
+# 🤖 Crea l'applicazione Telegram
+application = Application.builder().token(BOT_TOKEN).build()
 
-# Conversazione per iscrizione
+# 🌐 Crea l'app FastAPI
+app = FastAPI()
+
+# 📬 Webhook endpoint
+@app.post("/webhook")
+async def webhook(request: Request):
+    data = await request.json()
+    update = Update.de_json(data, application.bot)
+    await application.process_update(update)
+    return {"status": "ok"}
+
+# 🧩 Comando per aprire la Mini App
+async def apri_webapp(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [InlineKeyboardButton("🧩 Apri Mini App", web_app=WebAppInfo(url="https://battiatomatteo.github.io/Bot-iscrizioni-cwl/"))]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("Apri la Mini App per gestire le iscrizioni:", reply_markup=reply_markup)
+
+# 🗂️ Conversazione per iscrizione
 conv_iscrizione = ConversationHandler(
     entry_points=[CommandHandler("iscrivimi", start_iscrizione)],
     states={
@@ -52,7 +65,7 @@ conv_iscrizione = ConversationHandler(
     fallbacks=[CommandHandler("annulla", annulla)],
 )
 
-# Conversazione per eliminazione
+# 🗑️ Conversazione per eliminazione
 conv_elimina = ConversationHandler(
     entry_points=[CommandHandler("elimina_iscrizione", elimina_iscrizione_interattiva)],
     states={
@@ -61,34 +74,20 @@ conv_elimina = ConversationHandler(
     fallbacks=[CommandHandler("annulla", annulla)],
 )
 
-async def apri_webapp(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-        [InlineKeyboardButton("🧩 Apri Mini App", web_app=WebAppInfo(url="https://battiatomatteo.github.io/Bot-iscrizioni-cwl/"))]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("Apri la Mini App per gestire le iscrizioni:", reply_markup=reply_markup)
+# 📌 Aggiungi tutti gli handler al bot
+application.add_handler(CommandHandler("start", start))
+application.add_handler(CommandHandler("lista", mostra_lista))
+application.add_handler(CommandHandler("esporta", esporta_json))
+application.add_handler(CommandHandler("annulla", annulla))
+application.add_handler(CommandHandler("txt_cwl", genera_txt_cwl))
+application.add_handler(CommandHandler("app_admin", apri_webapp))
+application.add_handler(conv_iscrizione)
+application.add_handler(conv_elimina)
 
-
-
-
-# Comandi statici
-app.add_handler(CommandHandler("start", start))
-app.add_handler(CommandHandler("lista", mostra_lista))
-app.add_handler(CommandHandler("esporta", esporta_json))
-app.add_handler(CommandHandler("annulla", annulla))
-app.add_handler(CommandHandler("txt_cwl", genera_txt_cwl))
-app.add_handler(CommandHandler("app_admin", apri_webapp))
-
-
-# Conversazioni
-app.add_handler(conv_iscrizione)
-app.add_handler(conv_elimina)
-
-# Avvio
+# 🚀 Avvio locale con polling (solo per test locali)
 if __name__ == "__main__":
     print("🤖 Bot avviato... in ascolto su Telegram!")
     try:
-        app.run_polling()
+        application.run_polling()
     except KeyboardInterrupt:
         print("🛑 Bot interrotto manualmente.")
-
