@@ -1,27 +1,29 @@
-const tg = window.Telegram.WebApp;
-tg.expand();
+document.addEventListener("DOMContentLoaded", () => {
+  const listaDiv = document.getElementById("lista");
 
-function caricaGiocatori() {
-  fetch("iscritti.json")
+  fetch("https://TUO_DOMINIO/api/iscritti") // ← cambia con il tuo dominio reale
     .then(res => res.json())
     .then(data => {
-      const lista = document.getElementById("lista");
-      lista.innerHTML = "";
-      const giocatori = data.lista_principale;
-      giocatori.forEach(p => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <div class="nome">${p.nome_player}</div>
-          <div class="info">${p.th} | ${p.attacker_tag} | ${p.last_cwl_league || "Non assegnata"}</div>
-        `;
-        lista.appendChild(card);
-      });
+      if (Array.isArray(data)) {
+        listaDiv.innerHTML = data.map(player => `
+          <div class="iscritto">
+            <strong>${player.nome_player}</strong> (${player.th})<br>
+            🏷️ Tag: ${player.attacker_tag}<br>
+            👤 Username: ${player.username}<br>
+            🏆 Ultima CWL: ${player.last_cwl_league}
+          </div>
+          <hr>
+        `).join("");
+      } else {
+        listaDiv.textContent = "⚠️ Nessun iscritto trovato.";
+      }
+    })
+    .catch(err => {
+      console.error("Errore nel caricamento:", err);
+      listaDiv.textContent = "❌ Errore nel caricamento degli iscritti.";
     });
-}
+});
 
 function invia() {
-  tg.sendData("Suddivisione inviata");
+  alert("📤 Funzione di invio non ancora implementata.");
 }
-
-caricaGiocatori();

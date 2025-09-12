@@ -1,6 +1,9 @@
 import os
+import json
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import (
     Application,
@@ -33,13 +36,18 @@ from handlers.esporta import esporta_json
 load_dotenv(dotenv_path="config.env")
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-# 🤖 Crea l'applicazione Telegram
+# 🌐 FastAPI + CORS
+app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Puoi restringere al tuo dominio
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# 🤖 Bot Telegram
 application = Application.builder().token(BOT_TOKEN).build()
 
-# 🌐 Crea l'app FastAPI
-app = FastAPI()
-
-# 📬 Webhook endpoint
 @app.post("/webhook")
 async def webhook(request: Request):
     data = await request.json()
@@ -47,7 +55,16 @@ async def webhook(request: Request):
     await application.process_update(update)
     return {"status": "ok"}
 
-# 🧩 Comando per aprire la Mini App
+@app.get("/api/iscritti")
+async def get_iscritti():
+    try:
+        with open("data/iscritti.json", "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return JSONResponse(content=data["lista_principale"])
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=500)
+
+# Comando per aprire la Mini App
 async def apri_webapp(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("🧩 Apri Mini App", web_app=WebAppInfo(url="https://battiatomatteo.github.io/Bot-iscrizioni-cwl/"))]
@@ -55,7 +72,7 @@ async def apri_webapp(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("Apri la Mini App per gestire le iscrizioni:", reply_markup=reply_markup)
 
-# 🗂️ Conversazione per iscrizione
+# Conversazioni
 conv_iscrizione = ConversationHandler(
     entry_points=[CommandHandler("iscrivimi", start_iscrizione)],
     states={
@@ -65,7 +82,6 @@ conv_iscrizione = ConversationHandler(
     fallbacks=[CommandHandler("annulla", annulla)],
 )
 
-# 🗑️ Conversazione per eliminazione
 conv_elimina = ConversationHandler(
     entry_points=[CommandHandler("elimina_iscrizione", elimina_iscrizione_interattiva)],
     states={
@@ -74,7 +90,7 @@ conv_elimina = ConversationHandler(
     fallbacks=[CommandHandler("annulla", annulla)],
 )
 
-# 📌 Aggiungi tutti gli handler al bot
+# Aggiungi handler
 application.add_handler(CommandHandler("start", start))
 application.add_handler(CommandHandler("lista", mostra_lista))
 application.add_handler(CommandHandler("esporta", esporta_json))
@@ -84,7 +100,7 @@ application.add_handler(CommandHandler("app_admin", apri_webapp))
 application.add_handler(conv_iscrizione)
 application.add_handler(conv_elimina)
 
-# 🚀 Avvio locale con polling (solo per test locali)
+# Avvio locale
 if __name__ == "__main__":
     print("🤖 Bot avviato... in ascolto su Telegram!")
     try:
