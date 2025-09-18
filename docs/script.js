@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const listaDiv = document.getElementById("lista");
 
-  fetch("https://TUO_DOMINIO/api/iscritti") // ← cambia con il tuo dominio reale
+  fetch("http://localhost:5500/home.html") // ← cambia con il tuo dominio reale
     .then(res => res.json())
     .then(data => {
       if (Array.isArray(data)) {

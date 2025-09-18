@@ -31,6 +31,7 @@ from handlers.listeCwl import genera_txt_cwl
 from handlers.start import start
 from handlers.listaIscritti import mostra_lista
 from handlers.esporta import esporta_json
+from handlers.crea_iscritti_mensili import crea_file_iscritti
 
 # 🔐 Carica variabili ambiente
 load_dotenv(dotenv_path="config.env")
@@ -60,9 +61,21 @@ async def get_iscritti():
     try:
         with open("data/iscritti.json", "r", encoding="utf-8") as f:
             data = json.load(f)
+        if "lista_principale" not in data:
+            raise KeyError("Chiave 'lista_principale' mancante")
         return JSONResponse(content=data["lista_principale"])
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
+
+# Comando per testare la creazione del file mensile
+async def test_file(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    file_path = crea_file_iscritti()
+    if file_path:
+        await context.bot.send_document(chat_id=update.effective_chat.id, document=open(file_path, "rb"))
+        await update.message.reply_text("✅ File creato e inviato!")
+    else:
+        await update.message.reply_text("⚠️ Il file esiste già o non ci sono dati.")
+
 
 # Comando per aprire la Mini App
 async def apri_webapp(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -99,6 +112,7 @@ application.add_handler(CommandHandler("txt_cwl", genera_txt_cwl))
 application.add_handler(CommandHandler("app_admin", apri_webapp))
 application.add_handler(conv_iscrizione)
 application.add_handler(conv_elimina)
+application.add_handler(CommandHandler("testfile", test_file))
 
 # Avvio locale
 if __name__ == "__main__":
