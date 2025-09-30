@@ -6,3 +6,5 @@ requests
 fpdf
 flask
 flask-cors
+python-multipart
+jinja2
