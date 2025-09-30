@@ -8,20 +8,41 @@
 <body>
     <h2>Crea Nuova Lista</h2>
     <form method="POST" action="/crea_lista">
-
         <input type="text" name="nome_lista" placeholder="Nome Lista" required>
         <input type="number" name="max_player" placeholder="Max Player" required>
         <button type="submit">Crea</button>
     </form>
 
-    <form method="POST" action="/genera_liste">
-        <button type="submit" style="margin-top: 10px;">⚙️ Genera Distribuzione</button>
-    </form>
+    <div style="display: flex; gap: 10px; margin-top: 10px;">
+        <form method="POST" action="/genera_liste">
+            <button type="submit">⚙️ Genera Distribuzione</button>
+        </form>
+
+        <form method="POST" action="/salva_liste">
+            <button type="submit">💾 Salva Liste</button>
+        </form>
+
+        <form method="POST" action="/reset_liste">
+            <button type="submit" style="background-color: crimson; color: white;">🔄 Reset Liste</button>
+        </form>
+    </div>
+
+
+    {% if conferma %}
+        <p style="color: green; font-weight: bold;">{{ conferma }}</p>
+    {% endif %}
 
     <h3>Liste Correnti</h3>
     {% for nome, info in liste.items() %}
         <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
             <h4>{{ nome }} (max: {{ info.max }})</h4>
+            {% if messaggi and messaggi.get(nome) %}
+                {% if "✅" in messaggi[nome] %}
+                    <p style="color: green;">{{ messaggi[nome] }}</p>
+                {% else %}
+                    <p style="color: red;">{{ messaggi[nome] }}</p>
+                {% endif %}
+            {% endif %}
             <ul>
                 {% for player in info.players %}
                     <li>{{ player }}</li>
@@ -40,9 +61,6 @@
         </ul>
     </div>
     {% endif %}
-    <form method="POST" action="/salva_liste">
-        <button type="submit" style="margin-top: 10px;">💾 Salva Liste</button>
-    </form>
 
     <h3>Sposta Player</h3>
     <form method="POST" action="/sposta">

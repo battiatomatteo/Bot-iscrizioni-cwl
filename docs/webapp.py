@@ -74,10 +74,37 @@ def crea_lista(request: Request, nome_lista: str = Form(...), max_player: int = 
 
 @app.post("/sposta", response_class=HTMLResponse)
 def sposta_player(request: Request, player: str = Form(...), da: str = Form(...), a: str = Form(...)):
-    if player in liste.get(da, {}).get("players", []) and len(liste.get(a, {}).get("players", [])) < liste[a]["max"]:
-        liste[da]["players"].remove(player)
-        liste[a]["players"].append(player)
-    return RedirectResponse("/gestione", status_code=302)
+    messaggi = {}
+
+    # Rimuovi da lista di partenza (match parziale e case-insensitive)
+    originali = liste.get(da, {}).get("players", [])
+    for p in originali:
+        if p.strip().lower() == player.strip().lower():
+            liste[da]["players"].remove(p)
+            break
+
+
+    # Aggiungi a lista di destinazione
+    liste.setdefault(a, {"max": 0, "players": []})
+    liste[a]["players"].append(player)
+
+    # Calcola messaggi dinamici
+    for nome, info in liste.items():
+        attuali = len(info["players"])
+        massimo = info["max"]
+        if attuali < massimo:
+            messaggi[nome] = f"⚠️ Mancano {massimo - attuali} player"
+        elif attuali > massimo:
+            messaggi[nome] = f"⚠️ Ci sono {attuali - massimo} player in più"
+        else:
+            messaggi[nome] = "✅ Lista completa"
+
+    return templates.TemplateResponse("gestione_liste.html", {
+        "request": request,
+        "liste": liste,
+        "mancanti": [],
+        "messaggi": messaggi
+    })
 
 @app.post("/genera_liste", response_class=HTMLResponse)
 def genera_liste(request: Request):
@@ -140,10 +167,19 @@ def salva_liste(request: Request):
         "mancanti": []
     })
 
-@app.post("/crea_lista", response_class=HTMLResponse)
-def crea_lista(request: Request, nome_lista: str = Form(...), max_player: int = Form(...)):
-    liste[nome_lista] = {"max": max_player, "players": []}
-    return RedirectResponse("/gestione", status_code=302)
+@app.post("/reset_liste", response_class=HTMLResponse)
+def reset_liste(request: Request):
+    liste.clear()
+    path_salvataggio = DATA_DIR / "liste_salvate.txt"
+    if path_salvataggio.exists():
+        path_salvataggio.unlink()
+    return templates.TemplateResponse("gestione_liste.html", {
+        "request": request,
+        "liste": {},
+        "mancanti": [],
+        "messaggi": {},
+        "conferma": "🔄 Tutte le liste sono state resettate"
+    })
 
 
 @app.get("/finale", response_class=HTMLResponse)
