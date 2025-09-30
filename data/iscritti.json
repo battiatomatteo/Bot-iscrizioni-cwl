@@ -1,4 +1,914 @@
 {
-    "lista_principale": [
-    ]
+  "lista_principale": [
+    {
+      "nome_player": "⁦alien⁩",
+      "th": "TH17",
+      "attacker_tag": "#PPRUVU0Q",
+      "last_cwl_league": "Champion League II",
+      "tg_user_id": 269871398,
+      "tg_username": "Thomas_TG",
+      "tg_fullname": "Thomas",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦alien 2.0⁩",
+      "th": "TH17",
+      "attacker_tag": "#8U9PPV0P0",
+      "last_cwl_league": "Champion League II",
+      "tg_user_id": 269871398,
+      "tg_username": "Thomas_TG",
+      "tg_fullname": "Thomas",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦IL_POPE⁩",
+      "th": "TH15",
+      "attacker_tag": "#LQ9U9YUGJ",
+      "last_cwl_league": "Crystal League I",
+      "tg_user_id": 960976716,
+      "tg_username": "Baddy33",
+      "tg_fullname": "Baddy 🥷🏻",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦BADDY⁩",
+      "th": "TH17",
+      "attacker_tag": "#PPUCJYRQ9",
+      "last_cwl_league": "Champion League II",
+      "tg_user_id": 960976716,
+      "tg_username": "Baddy33",
+      "tg_fullname": "Baddy 🥷🏻",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦alien 3.0⁩",
+      "th": "TH12",
+      "attacker_tag": "#Q0UP9PGLR",
+      "last_cwl_league": "",
+      "tg_user_id": 269871398,
+      "tg_username": "Thomas_TG",
+      "tg_fullname": "Thomas",
+      "riserva": true
+    },
+    {
+      "nome_player": "⁦Я∆ØuL⁩",
+      "th": "TH17",
+      "attacker_tag": "#2VPLP0VLG",
+      "last_cwl_league": "Champion League II",
+      "tg_user_id": 395637834,
+      "tg_username": "RaOuLiAM",
+      "tg_fullname": "Ɽ₳ØɄŁ",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦David⁩",
+      "th": "TH17",
+      "attacker_tag": "#URYUUR88",
+      "last_cwl_league": "Champion League III",
+      "tg_user_id": 345780327,
+      "tg_username": "David8191",
+      "tg_fullname": "David",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦[RERE]⁩",
+      "th": "TH17",
+      "attacker_tag": "#2JY0LGPV",
+      "last_cwl_league": "Champion League III",
+      "tg_user_id": 1476482734,
+      "tg_username": "Rererru",
+      "tg_fullname": "Rere",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦[RERE]™️⁩",
+      "th": "TH16",
+      "attacker_tag": "#L0LR29L22",
+      "last_cwl_league": "Master League I",
+      "tg_user_id": 1476482734,
+      "tg_username": "Rererru",
+      "tg_fullname": "Rere",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦⚡⚡EAGLE8623 ⚡⚡⁩",
+      "th": "TH17",
+      "attacker_tag": "#QU2YQVJ9",
+      "last_cwl_league": "Master League III",
+      "tg_user_id": 1021944499,
+      "tg_username": "EAGLE8623",
+      "tg_fullname": "Eagle8623",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦_Sara_♡⁩",
+      "th": "TH17",
+      "attacker_tag": "#LGPL8Y90Q",
+      "last_cwl_league": "Master League I",
+      "tg_user_id": 1147448683,
+      "tg_username": "ImSara26",
+      "tg_fullname": "Sara",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦_Saretta_♡⁩",
+      "th": "TH14",
+      "attacker_tag": "#G0Q2JYC20",
+      "last_cwl_league": "Crystal League II",
+      "tg_user_id": 1147448683,
+      "tg_username": "ImSara26",
+      "tg_fullname": "Sara",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦ReginaDiCuori⁩",
+      "th": "TH14",
+      "attacker_tag": "#LYCP9UGLG",
+      "last_cwl_league": "Crystal League II",
+      "tg_user_id": 1147448683,
+      "tg_username": "ImSara26",
+      "tg_fullname": "Sara",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦Я∆◊UL⁩",
+      "th": "TH17",
+      "attacker_tag": "#2U2QQURUR",
+      "last_cwl_league": "Champion League II",
+      "tg_user_id": 395637834,
+      "tg_username": "RaOuLiAM",
+      "tg_fullname": "Ɽ₳ØɄŁ",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦⃤M∑∂uŞ∆★⁩",
+      "th": "TH17",
+      "attacker_tag": "#2VLYPRG2U",
+      "last_cwl_league": "Champion League III",
+      "tg_user_id": 395637834,
+      "tg_username": "RaOuLiAM",
+      "tg_fullname": "Ɽ₳ØɄŁ",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦lupastro⁩",
+      "th": "TH17",
+      "attacker_tag": "#JYVGGYYG",
+      "last_cwl_league": "Champion League III",
+      "tg_user_id": 395637834,
+      "tg_username": "RaOuLiAM",
+      "tg_fullname": "Ɽ₳ØɄŁ",
+      "riserva": false
+    },
+    {
+      "nome_player": "⁦MegaSceptile92⁩",
+      "th": "TH17",
+      "attacker_tag": "#Q8P2G2PR",
+      "last_cwl_league": "Champion League II",
+      "riserva": false,
+      "tg_user_id": 6752540172,
+      "tg_username": "MegaScep92",
+      "tg_fullname": "Mega Scep"
+    },
+    {
+      "nome_player": "⁦MegaScep2⁩",
+      "th": "TH15",
+      "attacker_tag": "#Y9PLQ82UG",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 6752540172,
+      "tg_username": "MegaScep92",
+      "tg_fullname": "Mega Scep"
+    },
+    {
+      "nome_player": "⁦NicolaMS5⁩",
+      "th": "TH15",
+      "attacker_tag": "#Y8GRJ202U",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 6752540172,
+      "tg_username": "MegaScep92",
+      "tg_fullname": "Mega Scep"
+    },
+    {
+      "nome_player": "⁦MegaScep3⁩",
+      "th": "TH14",
+      "attacker_tag": "#LY0LL9R8G",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 6752540172,
+      "tg_username": "MegaScep92",
+      "tg_fullname": "Mega Scep"
+    },
+    {
+      "nome_player": "⁦Mega4⁩",
+      "th": "TH14",
+      "attacker_tag": "#QYU9VJJQY",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 6752540172,
+      "tg_username": "MegaScep92",
+      "tg_fullname": "Mega Scep"
+    },
+    {
+      "nome_player": "⁦MegaScep3 Orig.⁩",
+      "th": "TH13",
+      "attacker_tag": "#LR02LQ0JP",
+      "last_cwl_league": "",
+      "riserva": false,
+      "tg_user_id": 6752540172,
+      "tg_username": "MegaScep92",
+      "tg_fullname": "Mega Scep"
+    },
+    {
+      "nome_player": "⁦MegaScep6Pc⁩",
+      "th": "TH12",
+      "attacker_tag": "#GL2V00PRR",
+      "last_cwl_league": "",
+      "riserva": false,
+      "tg_user_id": 6752540172,
+      "tg_username": "MegaScep92",
+      "tg_fullname": "Mega Scep"
+    },
+    {
+      "nome_player": "⁦IL_PROFETA⁩",
+      "th": "TH11",
+      "attacker_tag": "#GL8CPRYCP",
+      "last_cwl_league": "",
+      "riserva": true,
+      "tg_user_id": 960976716,
+      "tg_username": "Baddy33",
+      "tg_fullname": "Baddy 🥷🏻"
+    },
+    {
+      "nome_player": "⁦Nik⁩",
+      "th": "TH17",
+      "attacker_tag": "#LRYLGGYPY",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 42946103,
+      "tg_username": "nikpa28",
+      "tg_fullname": "Niccolò Panti"
+    },
+    {
+      "nome_player": "⁦Queen⁩",
+      "th": "TH16",
+      "attacker_tag": "#P8QLJY8V",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 42946103,
+      "tg_username": "nikpa28",
+      "tg_fullname": "Niccolò Panti"
+    },
+    {
+      "nome_player": "⁦Nik2⁩",
+      "th": "TH16",
+      "attacker_tag": "#LGQ9VVUYL",
+      "last_cwl_league": "Master League III",
+      "riserva": false,
+      "tg_user_id": 42946103,
+      "tg_username": "nikpa28",
+      "tg_fullname": "Niccolò Panti"
+    },
+    {
+      "nome_player": "⁦VivN⁩",
+      "th": "TH16",
+      "attacker_tag": "#LULC0QCCY",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 42946103,
+      "tg_username": "nikpa28",
+      "tg_fullname": "Niccolò Panti"
+    },
+    {
+      "nome_player": "⁦Matteo⁩",
+      "th": "TH17",
+      "attacker_tag": "#JGQYGJ9Y",
+      "last_cwl_league": "Champion League II",
+      "riserva": false,
+      "tg_user_id": 1109629644,
+      "tg_username": "Matteo3455",
+      "tg_fullname": "Matteo"
+    },
+    {
+      "nome_player": "⁦Matteo⁩",
+      "th": "TH17",
+      "attacker_tag": "#8U0R2C2GL",
+      "last_cwl_league": "Champion League II",
+      "riserva": false,
+      "tg_user_id": 7290452723,
+      "tg_username": "matteosina_02",
+      "tg_fullname": "Matteo"
+    },
+    {
+      "nome_player": "⁦fede⁩",
+      "th": "TH17",
+      "attacker_tag": "#9LRPU2JC",
+      "last_cwl_league": "Master League III",
+      "riserva": false,
+      "tg_user_id": 336442243,
+      "tg_username": "f_t_a_f",
+      "tg_fullname": "Federico"
+    },
+    {
+      "nome_player": "⁦Luke:)⁩",
+      "th": "TH17",
+      "attacker_tag": "#29R20P200",
+      "last_cwl_league": "Champion League III",
+      "riserva": false,
+      "tg_user_id": 255774216,
+      "tg_username": "luke_1206",
+      "tg_fullname": "Gianluca"
+    },
+    {
+      "nome_player": "⁦_DarkLatios_⁩",
+      "th": "TH15",
+      "attacker_tag": "#JVC8GVLG",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 282189957,
+      "tg_username": "JctitanLGFerrari",
+      "tg_fullname": "Jctitan_"
+    },
+    {
+      "nome_player": "⁦bana⁩",
+      "th": "TH12",
+      "attacker_tag": "#QLPLPYQJ9",
+      "last_cwl_league": "Crystal League II",
+      "riserva": true,
+      "tg_user_id": 960976716,
+      "tg_username": "Baddy33",
+      "tg_fullname": "Baddy 🥷🏻"
+    },
+    {
+      "nome_player": "⁦templare⁩",
+      "th": "TH17",
+      "attacker_tag": "#28YRUUUR2",
+      "last_cwl_league": "Master League III",
+      "riserva": false,
+      "tg_user_id": 348663659,
+      "tg_username": "templar_sargeras",
+      "tg_fullname": "Templar"
+    },
+    {
+      "nome_player": "⁦terrò⁩",
+      "th": "TH17",
+      "attacker_tag": "#2RPL09VY8",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 627835392,
+      "tg_username": "Terro87",
+      "tg_fullname": "Terrò"
+    },
+    {
+      "nome_player": "⁦fifi⁩",
+      "th": "TH14",
+      "attacker_tag": "#G008LGLUC",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 994164767,
+      "tg_username": "fifi_28",
+      "tg_fullname": "Francesca"
+    },
+    {
+      "nome_player": "⁦van pisu⁩",
+      "th": "TH17",
+      "attacker_tag": "#9PR9J9GRL",
+      "last_cwl_league": "Master League III",
+      "riserva": false,
+      "tg_user_id": 5623859058,
+      "tg_username": null,
+      "tg_fullname": "85177"
+    },
+    {
+      "nome_player": "⁦mattia⁩",
+      "th": "TH17",
+      "attacker_tag": "#9J89JVLQ9",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 5623859058,
+      "tg_username": null,
+      "tg_fullname": "85177"
+    },
+    {
+      "nome_player": "⁦tor⁩",
+      "th": "TH15",
+      "attacker_tag": "#28Y9J2280",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 379857336,
+      "tg_username": "Davidexxe",
+      "tg_fullname": "XXXDAVÆX"
+    },
+    {
+      "nome_player": "⁦Goblin⁩",
+      "th": "TH15",
+      "attacker_tag": "#2PCGYVPJL",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 5844475536,
+      "tg_username": null,
+      "tg_fullname": "Radu Slabu"
+    },
+    {
+      "nome_player": "⁦GoblinSon⁩",
+      "th": "TH12",
+      "attacker_tag": "#GJ8QCY900",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 5844475536,
+      "tg_username": null,
+      "tg_fullname": "Radu Slabu"
+    },
+    {
+      "nome_player": "⁦PSYCO⁩",
+      "th": "TH17",
+      "attacker_tag": "#YRLJ0PC08",
+      "last_cwl_league": "Champion League II",
+      "riserva": false,
+      "tg_user_id": 1118100298,
+      "tg_username": "Alexander_PSYCO",
+      "tg_fullname": "Alexander Guerrini"
+    },
+    {
+      "nome_player": "⁦☆Lorenzo☆⁩",
+      "th": "TH17",
+      "attacker_tag": "#8RUCP8Q92",
+      "last_cwl_league": "Master League III",
+      "riserva": false,
+      "tg_user_id": 356289994,
+      "tg_username": "GSforlife",
+      "tg_fullname": "i need a mag 🇷🇺"
+    },
+    {
+      "nome_player": "⁦dεαdl⊕ςκεd⁩",
+      "th": "TH17",
+      "attacker_tag": "#P28J90QG",
+      "last_cwl_league": "Master League III",
+      "riserva": false,
+      "tg_user_id": 510774570,
+      "tg_username": "Fratranne",
+      "tg_fullname": "Francesco - 𐊷əɲəƨ᭄𓍝 ⚜KAIROS⚜"
+    },
+    {
+      "nome_player": "⁦Massimiliano⁩",
+      "th": "TH17",
+      "attacker_tag": "#PR0JP0L22",
+      "last_cwl_league": "Champion League III",
+      "riserva": false,
+      "tg_user_id": 782611162,
+      "tg_username": null,
+      "tg_fullname": "Massi"
+    },
+    {
+      "nome_player": "⁦INFERNO⁩",
+      "th": "TH17",
+      "attacker_tag": "#LL0JRV9PL",
+      "last_cwl_league": "Champion League III",
+      "riserva": false,
+      "tg_user_id": 1118100298,
+      "tg_username": "Alexander_PSYCO",
+      "tg_fullname": "Alexander Guerrini"
+    },
+    {
+      "nome_player": "⁦ALEXANDER⁩",
+      "th": "TH17",
+      "attacker_tag": "#QVVCVLUQV",
+      "last_cwl_league": "Champion League III",
+      "riserva": false,
+      "tg_user_id": 1118100298,
+      "tg_username": "Alexander_PSYCO",
+      "tg_fullname": "Alexander Guerrini"
+    },
+    {
+      "nome_player": "⁦nz⁩",
+      "th": "TH17",
+      "attacker_tag": "#RLL0V80J",
+      "last_cwl_league": "Champion League III",
+      "riserva": false,
+      "tg_user_id": 1118100298,
+      "tg_username": "Alexander_PSYCO",
+      "tg_fullname": "Alexander Guerrini"
+    },
+    {
+      "nome_player": "⁦ANTHONY⁩",
+      "th": "TH17",
+      "attacker_tag": "#QQLGRLGYR",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 1118100298,
+      "tg_username": "Alexander_PSYCO",
+      "tg_fullname": "Alexander Guerrini"
+    },
+    {
+      "nome_player": "⁦paco⁩",
+      "th": "TH16",
+      "attacker_tag": "#CGR8QQ90",
+      "last_cwl_league": "Crystal League II",
+      "riserva": false,
+      "tg_user_id": 1118100298,
+      "tg_username": "Alexander_PSYCO",
+      "tg_fullname": "Alexander Guerrini"
+    },
+    {
+      "nome_player": "⁦pallino⁩",
+      "th": "TH17",
+      "attacker_tag": "#P982VG9JL",
+      "last_cwl_league": "Champion League III",
+      "riserva": false,
+      "tg_user_id": 1118100298,
+      "tg_username": "Alexander_PSYCO",
+      "tg_fullname": "Alexander Guerrini"
+    },
+    {
+      "nome_player": "⁦Fᗩᕊᓮට ᙢᗩᘉƮට⁩",
+      "th": "TH17",
+      "attacker_tag": "#2PQV082VV",
+      "last_cwl_league": "Champion League II",
+      "riserva": false,
+      "tg_user_id": 923325550,
+      "tg_username": "Fabio_Manto",
+      "tg_fullname": "Fabio Manto"
+    },
+    {
+      "nome_player": "⁦THE WRITER⁩",
+      "th": "TH15",
+      "attacker_tag": "#G22QUPY0L",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 6574061668,
+      "tg_username": "THIS4GIO",
+      "tg_fullname": "L~"
+    },
+    {
+      "nome_player": "⁦Ricky⁩",
+      "th": "TH14",
+      "attacker_tag": "#RJC090L0",
+      "last_cwl_league": "Crystal League II",
+      "riserva": true,
+      "tg_user_id": 269871398,
+      "tg_username": "Thomas_TG",
+      "tg_fullname": "Thomas"
+    },
+    {
+      "nome_player": "⁦iChigo⁩",
+      "th": "TH17",
+      "attacker_tag": "#C09RJ2JL",
+      "last_cwl_league": "Champion League III",
+      "riserva": false,
+      "tg_user_id": 269871398,
+      "tg_username": "Thomas_TG",
+      "tg_fullname": "Thomas"
+    },
+    {
+      "nome_player": "⁦mazinga9⁩",
+      "th": "TH17",
+      "attacker_tag": "#2LUQYCPCJ",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 1462693329,
+      "tg_username": "Bee1798",
+      "tg_fullname": "CELTICO"
+    },
+    {
+      "nome_player": "⁦aragorn⁩",
+      "th": "TH15",
+      "attacker_tag": "#2CCCP292V",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 1462693329,
+      "tg_username": "Bee1798",
+      "tg_fullname": "CELTICO"
+    },
+    {
+      "nome_player": "⁦Maso⁩",
+      "th": "TH17",
+      "attacker_tag": "#PJCGV02P",
+      "last_cwl_league": "Champion League II",
+      "riserva": false,
+      "tg_user_id": 1030100160,
+      "tg_username": "Maso76",
+      "tg_fullname": "Maso"
+    },
+    {
+      "nome_player": "⁦Bud Spencer⁩",
+      "th": "TH17",
+      "attacker_tag": "#P82GY80Y9",
+      "last_cwl_league": "Champion League III",
+      "riserva": false,
+      "tg_user_id": 1030100160,
+      "tg_username": "Maso76",
+      "tg_fullname": "Maso"
+    },
+    {
+      "nome_player": "⁦Trinità⁩",
+      "th": "TH17",
+      "attacker_tag": "#GC008Y2J",
+      "last_cwl_league": "Champion League II",
+      "riserva": false,
+      "tg_user_id": 1030100160,
+      "tg_username": "Maso76",
+      "tg_fullname": "Maso"
+    },
+    {
+      "nome_player": "⁦Bambino⁩",
+      "th": "TH15",
+      "attacker_tag": "#QJJVGVLV0",
+      "last_cwl_league": "Master League III",
+      "riserva": false,
+      "tg_user_id": 1030100160,
+      "tg_username": "Maso76",
+      "tg_fullname": "Maso"
+    },
+    {
+      "nome_player": "⁦jukosta15⁩",
+      "th": "TH17",
+      "attacker_tag": "#80QPVUL0",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 732613625,
+      "tg_username": "Jeypy73",
+      "tg_fullname": "Jeypi"
+    },
+    {
+      "nome_player": "⁦Lucifer⁩",
+      "th": "TH17",
+      "attacker_tag": "#2P0RPUG9Y",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 732613625,
+      "tg_username": "Jeypy73",
+      "tg_fullname": "Jeypi"
+    },
+    {
+      "nome_player": "⁦(The)_(Hacker)⁩",
+      "th": "TH17",
+      "attacker_tag": "#CCUG0LYV",
+      "last_cwl_league": "Champion League III",
+      "riserva": false,
+      "tg_user_id": 418082041,
+      "tg_username": "Daryl94",
+      "tg_fullname": "Hacker"
+    },
+    {
+      "nome_player": "⁦Alexander2⁩",
+      "th": "TH12",
+      "attacker_tag": "#GRUR0RJUL",
+      "last_cwl_league": "",
+      "riserva": false,
+      "tg_user_id": 1118100298,
+      "tg_username": "Alexander_PSYCO",
+      "tg_fullname": "Alexander Guerrini"
+    },
+    {
+      "nome_player": "⁦MARINEFORD⁩",
+      "th": "TH17",
+      "attacker_tag": "#UUPRPCCV",
+      "last_cwl_league": "Champion League III",
+      "riserva": false,
+      "tg_user_id": 5039411591,
+      "tg_username": "ilmiotelefonoesottolacqua",
+      "tg_fullname": "Cristian"
+    },
+    {
+      "nome_player": "⁦༄Antonello༄⁩",
+      "th": "TH17",
+      "attacker_tag": "#R09RUL8C",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 383948202,
+      "tg_username": "Anto28811",
+      "tg_fullname": "🌚༄Âསtøསཟ།།࿂༄🌚"
+    },
+    {
+      "nome_player": "⁦يشغ魔Antoསཇ།།ཅ⁩",
+      "th": "TH16",
+      "attacker_tag": "#290G2C22R",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 383948202,
+      "tg_username": "Anto28811",
+      "tg_fullname": "🌚༄Âསtøསཟ།།࿂༄🌚"
+    },
+    {
+      "nome_player": "⁦Bob✈️⁩",
+      "th": "TH16",
+      "attacker_tag": "#LQPLYPVC",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 383948202,
+      "tg_username": "Anto28811",
+      "tg_fullname": "🌚༄Âསtøསཟ།།࿂༄🌚"
+    },
+    {
+      "nome_player": "⁦Mario⁩",
+      "th": "TH17",
+      "attacker_tag": "#8Q2C88V8",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 842965986,
+      "tg_username": "camposraketti",
+      "tg_fullname": "Mario"
+    },
+    {
+      "nome_player": "⁦kando⁩",
+      "th": "TH17",
+      "attacker_tag": "#PR8U8JYC9",
+      "last_cwl_league": "Champion League III",
+      "riserva": false,
+      "tg_user_id": 5147741519,
+      "tg_username": "kendidzz",
+      "tg_fullname": "Riccardo"
+    },
+    {
+      "nome_player": "⁦Mario 2⁩",
+      "th": "TH13",
+      "attacker_tag": "#Y9LR9R2VP",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 842965986,
+      "tg_username": "camposraketti",
+      "tg_fullname": "Mario"
+    },
+    {
+      "nome_player": "⁦Spongebob⁩",
+      "th": "TH17",
+      "attacker_tag": "#8QLP0VYUG",
+      "last_cwl_league": "Crystal League II",
+      "riserva": false,
+      "tg_user_id": 6555152429,
+      "tg_username": null,
+      "tg_fullname": "Sponge"
+    },
+    {
+      "nome_player": "⁦zeta⁩",
+      "th": "TH17",
+      "attacker_tag": "#JGJ9UC8Y",
+      "last_cwl_league": "Master League III",
+      "riserva": false,
+      "tg_user_id": 7457439346,
+      "tg_username": "EmaZeta17",
+      "tg_fullname": "Emanuele Zeta"
+    },
+    {
+      "nome_player": "⁦Mister X⁩",
+      "th": "TH15",
+      "attacker_tag": "#Q8UQ9082",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 7457439346,
+      "tg_username": "EmaZeta17",
+      "tg_fullname": "Emanuele Zeta"
+    },
+    {
+      "nome_player": "⁦#G@B®¥€L€#⁩",
+      "th": "TH15",
+      "attacker_tag": "#QCUQGYYV",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 982000666,
+      "tg_username": "Ilbeghe",
+      "tg_fullname": "#G@B®¥€L€#"
+    },
+    {
+      "nome_player": "⁦Nino⁩",
+      "th": "TH17",
+      "attacker_tag": "#LJ9QLVUGC",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 7197679931,
+      "tg_username": "NinoTrip",
+      "tg_fullname": "Nino"
+    },
+    {
+      "nome_player": "⁦Regu il Supremo⁩",
+      "th": "TH16",
+      "attacker_tag": "#QVYJ0Q2",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 5838023355,
+      "tg_username": null,
+      "tg_fullname": "Devis"
+    },
+    {
+      "nome_player": "⁦THE King⁩",
+      "th": "TH17",
+      "attacker_tag": "#Q0YVYL9UV",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 1118100298,
+      "tg_username": "Alexander_PSYCO",
+      "tg_fullname": "Alexander Guerrini"
+    },
+    {
+      "nome_player": "⁦Robbello⁩",
+      "th": "TH17",
+      "attacker_tag": "#80PUPCRV0",
+      "last_cwl_league": "Master League III",
+      "riserva": false,
+      "tg_user_id": 706610254,
+      "tg_username": "Rdirob",
+      "tg_fullname": "Rob"
+    },
+    {
+      "nome_player": "⁦Papà Grizzly⁩",
+      "th": "TH17",
+      "attacker_tag": "#YPRRVCU80",
+      "last_cwl_league": "Master League III",
+      "riserva": false,
+      "tg_user_id": 1131102674,
+      "tg_username": "Grizzly968",
+      "tg_fullname": "Andrea Pecc"
+    },
+    {
+      "nome_player": "⁦Papà Grizzly2⁩",
+      "th": "TH17",
+      "attacker_tag": "#R0VJQJQ",
+      "last_cwl_league": "Master League III",
+      "riserva": false,
+      "tg_user_id": 1131102674,
+      "tg_username": "Grizzly968",
+      "tg_fullname": "Andrea Pecc"
+    },
+    {
+      "nome_player": "⁦P.A.O⁩",
+      "th": "TH17",
+      "attacker_tag": "#L20VYU99C",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 1039234626,
+      "tg_username": "g_p9904",
+      "tg_fullname": ".. ..."
+    },
+    {
+      "nome_player": "⁦MtY⁩",
+      "th": "TH14",
+      "attacker_tag": "#RQRPC9JV",
+      "last_cwl_league": "Crystal League I",
+      "riserva": false,
+      "tg_user_id": 63080048,
+      "tg_username": "lubryyy",
+      "tg_fullname": "Lubry"
+    },
+    {
+      "nome_player": "⁦bueskitter⁩",
+      "th": "TH9",
+      "attacker_tag": "#PYRQ0VLRP",
+      "last_cwl_league": "",
+      "riserva": true,
+      "tg_user_id": 63080048,
+      "tg_username": "lubryyy",
+      "tg_fullname": "Lubry"
+    },
+    {
+      "nome_player": "⁦sten2⁩",
+      "th": "TH17",
+      "attacker_tag": "#2R2RU2LGG",
+      "last_cwl_league": "Master League III",
+      "riserva": false,
+      "tg_user_id": 6339727764,
+      "tg_username": null,
+      "tg_fullname": "Stefano Mosca"
+    },
+    {
+      "nome_player": "⁦diablo⁩",
+      "th": "TH17",
+      "attacker_tag": "#C0G9CVR2",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 866645959,
+      "tg_username": "DIABLOcor4",
+      "tg_fullname": "Federico Flocco"
+    },
+    {
+      "nome_player": "⁦Alex",
+      "th": "TH16",
+      "attacker_tag": "#YYL2RQQL",
+      "last_cwl_league": "",
+      "riserva": false,
+      "tg_user_id": 482638932,
+      "tg_username": "Alexfarra",
+      "tg_fullname": "Alexfarra"
+    },
+    {
+      "nome_player": "⁦[Piliff]⁩",
+      "th": "TH17",
+      "attacker_tag": "#QRR2L8UL",
+      "last_cwl_league": "Champion League II",
+      "riserva": false,
+      "tg_user_id": 7943886680,
+      "tg_username": "Piliff88",
+      "tg_fullname": "Filippo"
+    },
+    {
+      "nome_player": "⁦Sten⁩",
+      "th": "TH17",
+      "attacker_tag": "#Y9J022U9",
+      "last_cwl_league": "Master League I",
+      "riserva": false,
+      "tg_user_id": 6339727764,
+      "tg_username": null,
+      "tg_fullname": "Stefano Mosca"
+    }
+  ]
 }

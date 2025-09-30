@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestione Liste</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</head>
+<body>
+    <h2>Crea Nuova Lista</h2>
+    <form method="POST">
+        <input type="text" name="nome_lista" placeholder="Nome Lista" required>
+        <input type="number" name="max_player" placeholder="Max Player" required>
+        <button type="submit">Crea</button>
+    </form>
+
+    <h3>Liste Correnti</h3>
+    {% for nome, info in liste.items() %}
+        <div>
+            <h4>{{ nome }} (max: {{ info.max }})</h4>
+            <ul>
+                {% for player in info.players %}
+                    <li>{{ player }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+    <h3>Sposta Player</h3>
+    <form method="POST" action="{{ url_for('sposta') }}">
+        <input type="text" name="player" placeholder="Nome Player" required>
+        <input type="text" name="da" placeholder="Da Lista" required>
+        <input type="text" name="a" placeholder="A Lista" required>
+        <button type="submit">Sposta</button>
+    </form>
+</body>
+</html>

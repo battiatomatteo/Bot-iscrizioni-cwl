@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Mini App Telegram</h2>
+    <ul>
+        <li><a href="{{ url_for('lista') }}">Visualizza Lista CWL</a></li>
+        <li><a href="{{ url_for('gestione') }}">Gestione Liste</a></li>
+        <li><a href="{{ url_for('finale') }}">Lista Finale</a></li>
+    </ul>
+</body>
+</html>
