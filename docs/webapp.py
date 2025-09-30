@@ -2,15 +2,28 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from pathlib import Path
 import os, json
 
-app = FastAPI()
-app.mount("/static", StaticFiles(directory="docs/static"), name="static")
-templates = Jinja2Templates(directory="docs/templates")
+# 📁 Percorsi dinamici
+BASE_DIR = Path(__file__).resolve().parent
+STATIC_DIR = BASE_DIR / "static"
+TEMPLATES_DIR = BASE_DIR / "templates"
+DATA_DIR = BASE_DIR.parent / "data"
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
+# 🐞 Debug percorsi
+print("📁 STATIC_DIR:", STATIC_DIR)
+print("📁 TEMPLATES_DIR:", TEMPLATES_DIR)
+print("📁 DATA_DIR:", DATA_DIR)
+
+# 🔐 Configurazione
 PASSWORD = "adminpass"
 liste = {}
+
+# 🚀 FastAPI setup
+app = FastAPI()
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
 @app.get("/", response_class=HTMLResponse)
 def login_page(request: Request):
@@ -32,9 +45,9 @@ def home(request: Request):
 
 @app.get("/lista", response_class=HTMLResponse)
 def lista(request: Request):
-    with open(os.path.join(DATA_DIR, "iscritti.json")) as f:
+    with open(DATA_DIR / "iscritti.json", encoding="utf-8") as f:
         iscritti = json.load(f)
-    with open(os.path.join(DATA_DIR, "Lista_CWL.txt")) as f:
+    with open(DATA_DIR / "Lista_CWL.txt", encoding="utf-8") as f:
         lista_txt = f.read()
     return templates.TemplateResponse("lista.html", {"request": request, "iscritti": iscritti, "lista_txt": lista_txt})
 
@@ -59,6 +72,6 @@ def finale(request: Request):
     finale_txt = ""
     for nome, info in liste.items():
         finale_txt += f"{nome}:\n" + "\n".join(info["players"]) + "\n\n"
-    with open(os.path.join(DATA_DIR, "lista_finale.txt"), "w") as f:
+    with open(DATA_DIR / "lista_finale.txt", "w", encoding="utf-8") as f:
         f.write(finale_txt)
     return templates.TemplateResponse("finale.html", {"request": request, "finale": finale_txt})
