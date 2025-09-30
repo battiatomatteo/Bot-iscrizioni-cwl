@@ -2,17 +2,11 @@
 <html>
 <head>
     <title>Lista CWL</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <h2>Contenuto Lista CWL</h2>
     <pre>{{ lista_txt }}</pre>
 
-    <h3>Iscritti JSON</h3>
-    <ul>
-        {% for key, value in iscritti.items() %}
-            <li><strong>{{ key }}:</strong> {{ value }}</li>
-        {% endfor %}
-    </ul>
 </body>
 </html>
