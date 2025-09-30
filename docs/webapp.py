@@ -53,7 +53,19 @@ def lista(request: Request):
 
 @app.get("/gestione", response_class=HTMLResponse)
 def gestione(request: Request):
-    return templates.TemplateResponse("gestione_liste.html", {"request": request, "liste": liste})
+    path_salvataggio = DATA_DIR / "liste_salvate.txt"
+    if path_salvataggio.exists():
+        with open(path_salvataggio, encoding="utf-8") as f:
+            blocchi = f.read().strip().split("\n\n")
+            for blocco in blocchi:
+                righe = blocco.strip().split("\n")
+                if righe:
+                    intestazione = righe[0]
+                    nome = intestazione.split(" (max:")[0]
+                    max_player = int(intestazione.split("max: ")[1].replace("):", ""))
+                    players = righe[1:]
+                    liste[nome] = {"max": max_player, "players": players}
+    return templates.TemplateResponse("gestione_liste.html", {"request": request, "liste": liste, "mancanti": []})
 
 @app.post("/crea_lista", response_class=HTMLResponse)
 def crea_lista(request: Request, nome_lista: str = Form(...), max_player: int = Form(...)):
@@ -66,6 +78,73 @@ def sposta_player(request: Request, player: str = Form(...), da: str = Form(...)
         liste[da]["players"].remove(player)
         liste[a]["players"].append(player)
     return RedirectResponse("/gestione", status_code=302)
+
+@app.post("/genera_liste", response_class=HTMLResponse)
+def genera_liste(request: Request):
+    try:
+        with open(DATA_DIR / "iscritti.json", encoding="utf-8") as f:
+            data = json.load(f)
+            iscritti = data.get("lista_principale", [])
+    except Exception:
+        iscritti = []
+
+    def estrai_th(player):
+        th_str = player.get("th", "")
+        try:
+            return int(str(th_str).replace("TH", "").strip())
+        except:
+            return 0
+
+    validi = [p for p in iscritti if isinstance(p, dict) and not p.get("riserva", False)]
+    riserve = [p["nome_player"] for p in iscritti if isinstance(p, dict) and p.get("riserva", False)]
+    ordinati = sorted(validi, key=estrai_th, reverse=True)
+
+    mancanti = riserve.copy()
+    idx = 0
+
+    for nome, info in liste.items():
+        max_p = info["max"]
+        info["players"] = []
+        while len(info["players"]) < max_p and idx < len(ordinati):
+            info["players"].append(ordinati[idx]["nome_player"])
+            idx += 1
+
+    mancanti += [p["nome_player"] for p in ordinati[idx:]]
+
+    return templates.TemplateResponse("gestione_liste.html", {
+        "request": request,
+        "liste": liste,
+        "mancanti": mancanti
+    })
+
+@app.post("/salva_liste", response_class=HTMLResponse)
+def salva_liste(request: Request):
+    if not liste:
+        return templates.TemplateResponse("gestione_liste.html", {
+            "request": request,
+            "liste": liste,
+            "mancanti": []
+        })
+
+    output = ""
+    for nome, info in liste.items():
+        output += f"{nome} (max: {info['max']}):\n"
+        output += "\n".join(info["players"]) + "\n\n"
+
+    with open(DATA_DIR / "liste_salvate.txt", "w", encoding="utf-8") as f:
+        f.write(output)
+
+    return templates.TemplateResponse("gestione_liste.html", {
+        "request": request,
+        "liste": liste,
+        "mancanti": []
+    })
+
+@app.post("/crea_lista", response_class=HTMLResponse)
+def crea_lista(request: Request, nome_lista: str = Form(...), max_player: int = Form(...)):
+    liste[nome_lista] = {"max": max_player, "players": []}
+    return RedirectResponse("/gestione", status_code=302)
+
 
 @app.get("/finale", response_class=HTMLResponse)
 def finale(request: Request):
