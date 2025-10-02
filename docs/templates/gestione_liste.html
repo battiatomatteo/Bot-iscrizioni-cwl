@@ -27,13 +27,12 @@
         </form>
     </div>
 
-
     {% if conferma %}
         <p style="color: green; font-weight: bold;">{{ conferma }}</p>
     {% endif %}
 
     <h3>Liste Correnti</h3>
-    {% for nome, info in liste.items() %}
+    {% for nome, info in liste.items() if nome != "Mancanti" %}
         <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
             <h4>{{ nome }} (max: {{ info.max }})</h4>
             {% if messaggi and messaggi.get(nome) %}
@@ -45,28 +44,43 @@
             {% endif %}
             <ul>
                 {% for player in info.players %}
-                    <li>{{ player }}</li>
+                    <li>{{ loop.index }}. {{ player }}</li>
                 {% endfor %}
             </ul>
         </div>
     {% endfor %}
 
-    {% if mancanti %}
     <h3>Mancanti</h3>
     <div style="border: 1px solid #f00; padding: 10px;">
-        <ul>
-            {% for player in mancanti %}
-                <li>{{ player }}</li>
-            {% endfor %}
-        </ul>
+        {% if liste.get("Mancanti") and liste["Mancanti"].players %}
+            <ul>
+                {% for player in liste["Mancanti"].players %}
+                    <li>{{ loop.index }}. {{ player }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="color: gray;">Nessun player mancante al momento.</p>
+        {% endif %}
     </div>
-    {% endif %}
 
     <h3>Sposta Player</h3>
     <form method="POST" action="/sposta">
         <input type="text" name="player" placeholder="Nome Player" required>
-        <input type="text" name="da" placeholder="Da Lista" required>
-        <input type="text" name="a" placeholder="A Lista" required>
+
+        <select name="da" required>
+            <option value="" disabled selected>Da Lista</option>
+            {% for nome in liste.keys() %}
+                <option value="{{ nome }}">{{ nome }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="a" required>
+            <option value="" disabled selected>A Lista</option>
+            {% for nome in liste.keys() %}
+                <option value="{{ nome }}">{{ nome }}</option>
+            {% endfor %}
+        </select>
+
         <button type="submit">Sposta</button>
     </form>
 
