@@ -1,4 +1,3 @@
-════════════════════════════════════
 Mancanti (max: 999):
 ⁦alien 3.0⁩ (TH12)
 ⁦IL_PROFETA⁩ (TH11)
@@ -17,7 +16,6 @@ Mancanti (max: 999):
 ⁦GoblinSon⁩ (TH12)
 ⁦Alexander2⁩ (TH12)
 
-════════════════════════════════════
 Lista Champ 2 (max: 15):
 ⁦alien⁩ (TH17)
 ⁦alien 2.0⁩ (TH17)
@@ -35,7 +33,6 @@ Lista Champ 2 (max: 15):
 ⁦Matteo⁩ (TH17)
 ⁦Matteo⁩ (TH17)
 
-════════════════════════════════════
 Lista Champ (max: 15):
 ⁦fede⁩ (TH17)
 ⁦Luke:)⁩ (TH17)
@@ -53,7 +50,6 @@ Lista Champ (max: 15):
 ⁦ANTHONY⁩ (TH17)
 ⁦pallino⁩ (TH17)
 
-════════════════════════════════════
 Lista M2 (max: 30):
 ⁦Fᗩᕊᓮට ᙢᗩᘉƮට⁩ (TH17)
 ⁦iChigo⁩ (TH17)
@@ -86,7 +82,6 @@ Lista M2 (max: 30):
 ⁦VivN⁩ (TH16)
 ⁦paco⁩ (TH16)
 
-════════════════════════════════════
 Lista 2 M2 (max: 15):
 ⁦يشغ魔Antoསཇ།།ཅ⁩ (TH16)
 ⁦Bob✈️⁩ (TH16)
@@ -103,3 +98,4 @@ Lista 2 M2 (max: 15):
 ⁦Bambino⁩ (TH15)
 ⁦Mister X⁩ (TH15)
 ⁦#G@B®¥€L€#⁩ (TH15)
+

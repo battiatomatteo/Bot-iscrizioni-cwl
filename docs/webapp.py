@@ -58,6 +58,30 @@ def lista(request: Request):
         "lista_txt": lista_txt
     })
 
+def get_iscritti_stats():
+    path = DATA_DIR / "iscritti.json"
+    try:
+        with open(path, encoding="utf-8") as f:
+            iscritti = json.load(f).get("lista_principale", [])
+    except:
+        iscritti = []
+
+    totale = len(iscritti)
+    riserve = 0
+    th_counter = {}
+
+    for p in iscritti:
+        th = str(p.get("th", "")).replace("TH", "").strip()
+        th_counter[th] = th_counter.get(th, 0) + 1
+        if p.get("riserva", False):
+            riserve += 1
+
+    return {
+        "totale_iscritti": totale,
+        "riserve_count": riserve,
+        "th_counter": th_counter
+    }
+
 @app.get("/gestione", response_class=HTMLResponse)
 def gestione(request: Request):
     path = DATA_DIR / "liste_salvate.txt"
@@ -71,11 +95,17 @@ def gestione(request: Request):
                 righe = blocco.strip().split("\n")
                 if righe:
                     intestazione = righe[0]
-                    nome = intestazione.split(" (max:")[0]
-                    max_player = int(intestazione.split("max: ")[1].replace("):", ""))
-                    players = righe[1:]
-                    liste[nome] = {"max": max_player, "players": players}
-                    tutti_player.extend(players)
+                    if "max: " in intestazione:
+                        try:
+                            nome = intestazione.split(" (max:")[0]
+                            max_player = int(intestazione.split("max: ")[1].replace("):", ""))
+                            players = righe[1:]
+                            liste[nome] = {"max": max_player, "players": players}
+                            tutti_player.extend(players)
+                        except Exception as e:
+                            print(f"❌ Errore parsing lista '{intestazione}': {e}")
+                    else:
+                        print(f"⚠️ Intestazione non valida: {intestazione}")
 
     # Ricostruzione lista mancanti
     if "Mancanti" in liste:
@@ -97,14 +127,20 @@ def gestione(request: Request):
 
     liste["Mancanti"] = {"max": 999, "players": mancanti}
 
+    # Riepilogo iscritti
+    stats = get_iscritti_stats()
 
     return templates.TemplateResponse("gestione_liste.html", {
         "request": request,
         "liste": liste,
         "mancanti": mancanti,
         "messaggi": {},
-        "conferma": None
+        "conferma": None,
+        "totale_iscritti": stats["totale_iscritti"],
+        "riserve_count": stats["riserve_count"],
+        "th_counter": stats["th_counter"]
     })
+
 
 
 @app.post("/crea_lista", response_class=HTMLResponse)
@@ -126,16 +162,13 @@ def genera_liste(request: Request):
         except:
             return 0
 
-    # Separazione tra validi e riserve
     validi = [p for p in iscritti if not p.get("riserva", False)]
     riserve = [f"{p['nome_player']} (TH{estrai_th(p)})" for p in iscritti if p.get("riserva", False)]
     ordinati = sorted(validi, key=estrai_th, reverse=True)
 
-    # Svuota tutte le liste prima di riempirle
     for nome in liste:
         liste[nome]["players"] = []
 
-    # Assegna i player ordinati alle liste (escludendo Mancanti)
     idx = 0
     for nome, info in liste.items():
         if nome == "Mancanti":
@@ -147,20 +180,23 @@ def genera_liste(request: Request):
             info["players"].append(player_str)
             idx += 1
 
-    # Ricostruzione Mancanti da riserve + non assegnati
     mancanti = riserve.copy()
     mancanti += [f"{p['nome_player']} (TH{estrai_th(p)})" for p in ordinati[idx:]]
-
-    # Sovrascrivi completamente la lista Mancanti
     liste["Mancanti"] = {"max": 999, "players": mancanti}
+
+    stats = get_iscritti_stats()
 
     return templates.TemplateResponse("gestione_liste.html", {
         "request": request,
         "liste": liste,
         "mancanti": mancanti,
         "messaggi": {},
-        "conferma": "✅ Distribuzione completata"
+        "conferma": "✅ Distribuzione completata",
+        "totale_iscritti": stats["totale_iscritti"],
+        "riserve_count": stats["riserve_count"],
+        "th_counter": stats["th_counter"]
     })
+
 
 
 @app.post("/sposta", response_class=HTMLResponse)
@@ -195,21 +231,27 @@ def sposta_player(request: Request, player: str = Form(...), da: str = Form(...)
 
 @app.post("/salva_liste", response_class=HTMLResponse)
 def salva_liste(request: Request):
-    output = ""
-    for nome, info in liste.items():
-        output += f"{nome} (max: {info['max']}):\n"
-        output += "\n".join(info["players"]) + "\n\n"
+    path = DATA_DIR / "liste_salvate.txt"
+    with open(path, "w", encoding="utf-8") as f:
+        for nome, info in liste.items():
+            f.write(f"{nome} (max: {info['max']}):\n")
+            for player in info["players"]:
+                f.write(f"{player}\n")
+            f.write("\n")
 
-    with open(DATA_DIR / "liste_salvate.txt", "w", encoding="utf-8") as f:
-        f.write(output)
+    stats = get_iscritti_stats()
 
     return templates.TemplateResponse("gestione_liste.html", {
         "request": request,
         "liste": liste,
-        "mancanti": liste.get("Mancanti", []),
+        "mancanti": liste.get("Mancanti", {}).get("players", []),
         "messaggi": {},
-        "conferma": "✅ Liste salvate correttamente"
+        "conferma": "💾 Liste salvate correttamente",
+        "totale_iscritti": stats["totale_iscritti"],
+        "riserve_count": stats["riserve_count"],
+        "th_counter": stats["th_counter"]
     })
+
 
 @app.post("/reset_liste", response_class=HTMLResponse)
 def reset_liste(request: Request):
@@ -217,24 +259,57 @@ def reset_liste(request: Request):
     path = DATA_DIR / "liste_salvate.txt"
     if path.exists():
         path.unlink()
+
+    stats = get_iscritti_stats()
+
     return templates.TemplateResponse("gestione_liste.html", {
         "request": request,
         "liste": {},
         "mancanti": [],
         "messaggi": {},
-        "conferma": "🔄 Tutte le liste sono state resettate"
+        "conferma": "🔄 Tutte le liste sono state resettate",
+        "totale_iscritti": stats["totale_iscritti"],
+        "riserve_count": stats["riserve_count"],
+        "th_counter": stats["th_counter"]
     })
+
+from fastapi.responses import FileResponse
+
+@app.get("/download_finale")
+def download_finale():
+    finale_path = Path("static") / "lista_finale.txt"
+    if not finale_path.exists():
+        return HTMLResponse("<h3>⚠️ Il file lista_finale.txt non esiste.</h3>", status_code=404)
+    return FileResponse(finale_path, media_type="text/plain", filename="lista_finale.txt")
+
 
 @app.get("/finale", response_class=HTMLResponse)
 def finale(request: Request):
-    finale_txt = ""
-    for nome, info in liste.items():
-        finale_txt += f"{nome}:\n" + "\n".join(info["players"]) + "\n\n"
+    path = DATA_DIR / "liste_salvate.txt"
+    finale_path = Path("static") / "lista_finale.txt"
+    finale_path.parent.mkdir(parents=True, exist_ok=True)
 
-    with open(DATA_DIR / "lista_finale.txt", "w", encoding="utf-8") as f:
-        f.write(finale_txt)
+    if not path.exists():
+        return HTMLResponse("<h3>⚠️ Nessuna lista salvata da esportare.</h3>", status_code=404)
+
+    with open(path, encoding="utf-8") as f:
+        blocchi = f.read().strip().split("\n\n")
+
+    contenuto_finale = []
+    for blocco in blocchi:
+        righe = blocco.strip().split("\n")
+        if righe:
+            intestazione = righe[0]
+            contenuto_finale.append("════════════════════════════════════")
+            contenuto_finale.append(intestazione)
+            contenuto_finale.extend(righe[1:])
+            contenuto_finale.append("")  # spazio tra blocchi
+
+    with open(finale_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(contenuto_finale))
 
     return templates.TemplateResponse("finale.html", {
         "request": request,
-        "finale": finale_txt
+        "contenuto": "\n".join(contenuto_finale)
     })
+

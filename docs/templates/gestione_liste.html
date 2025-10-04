@@ -7,6 +7,19 @@
 </head>
 <body>
     <h2>Crea Nuova Lista</h2>
+
+    <h2>📊 Riepilogo Iscritti</h2>
+    <div style="border: 1px solid #888; padding: 10px; margin-bottom: 20px;">
+        <p><strong>Totale iscritti:</strong> {{ totale_iscritti }}</p>
+        <p><strong>Riserve:</strong> {{ riserve_count }}</p>
+        <p><strong>Distribuzione TH:</strong></p>
+        <ul>
+            {% for th, count in th_counter.items() %}
+                <li>TH{{ th }}: {{ count }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
     <form method="POST" action="/crea_lista">
         <input type="text" name="nome_lista" placeholder="Nome Lista" required>
         <input type="number" name="max_player" placeholder="Max Player" required>
